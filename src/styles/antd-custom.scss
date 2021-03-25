@@ -1,0 +1,47 @@
+/* 定制antd样式 */
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  background: #22262f !important;
+}
+
+.ant-modal-confirm-confirm {
+  top: 200px !important;
+}
+
+/* Input */
+#root .ant-input {
+  width: 180px;
+}
+
+/* form表单中的Input */
+.ant-form .ant-input {
+  width: 240px;
+}
+
+/* form表单中的Input */
+.ant-form .ant-input-password .ant-input {
+  width: 100%;
+}
+
+#root .ant-select {
+  width: 180px;
+}
+
+.ant-form .ant-form-item .ant-select {
+  width: 240px;
+}
+
+// 限制Modal的高度
+.ant-modal-body {
+  max-height: 500px;
+  overflow: auto;
+}
+
+/* 表格居中 */
+.ant-table-thead > tr > .ant-table-cell,
+.ant-table-tbody > tr > td {
+  text-align: center;
+}
+
+.ant-table-placeholder {
+  height: 200px;
+}

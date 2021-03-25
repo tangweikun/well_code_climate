@@ -1,0 +1,230 @@
+$color-primary: #d41117;
+$color-border: #f0f0f0;
+
+// TODO:
+$color-fef4e4: #fef4e4;
+$color-e6a23c: #e6a23c;
+$color-green: green;
+$color-black: black;
+$color-red: red;
+$color-009900: #009900;
+$color-ff0000: #ff0000;
+$color-979494: #979494;
+$color-a2a0a0: #a2a0a0;
+$color-1890ff: #1890ff;
+$color-999999: #999999;
+$color-fff: #fff;
+
+$s1: 1px;
+$s4: 4px;
+$s8: 8px;
+$s10: 10px;
+$s12: 12px;
+$s16: 16px;
+$s20: 20px;
+
+// color ------------------------------------------
+.color-primary {
+  color: $color-primary !important;
+}
+
+// flex ------------------------------------------
+.flex {
+  display: flex;
+}
+
+.flex-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex1 {
+  flex: 1;
+}
+// font size ------------------------------------------
+.fz12 {
+  font-size: 12px;
+}
+
+.fz14 {
+  font-size: 14px;
+}
+
+.fz16 {
+  font-size: 16px;
+}
+
+.fz18 {
+  font-size: 18px;
+}
+
+.fz20 {
+  font-size: 20px;
+}
+
+.fz22 {
+  font-size: 22px;
+}
+
+.fz24 {
+  font-size: 24px;
+}
+
+.fz30 {
+  font-size: 30px;
+}
+
+// font weight ------------------------------------------
+.bold {
+  font-weight: bold;
+}
+
+.bold-500 {
+  font-weight: 500;
+}
+
+.bold-400 {
+  font-weight: 400;
+}
+
+// border ------------------------------------------
+.border-all {
+  border: 1px solid $color-border !important;
+}
+
+.border-none {
+  border: none !important;
+}
+
+.border-top {
+  border-top: 1px solid $color-border !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid $color-border !important;
+}
+
+.border-left {
+  border-left: 1px solid $color-border !important;
+}
+
+.border-right {
+  border-right: 1px solid $color-border !important;
+}
+
+.border-dashed {
+  border: 1px dashed $color-border;
+}
+
+// hover ------------------------------------------
+.hover-active {
+  &:hover {
+    color: $color-primary !important;
+    cursor: pointer;
+  }
+}
+
+// cursor ------------------------------------------
+.pointer {
+  cursor: pointer;
+}
+
+// text-position ------------------------------------------
+.text-left {
+  text-align: left !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
+// margin ------------------------------------------
+.mt4 {
+  margin-top: $s4 !important;
+}
+
+.mr4 {
+  margin-right: $s4 !important;
+}
+
+.mb4 {
+  margin-bottom: $s4 !important;
+}
+
+.ml4 {
+  margin-left: $s4 !important;
+}
+
+.mt20 {
+  margin-top: $s20 !important;
+}
+
+.mr20 {
+  margin-right: $s20 !important;
+}
+
+.mb20 {
+  margin-bottom: $s20 !important;
+}
+
+.ml20 {
+  margin-left: $s20 !important;
+}
+
+.mt10 {
+  margin-top: $s10 !important;
+}
+
+.mr10 {
+  margin-right: $s10 !important;
+}
+
+.mb10 {
+  margin-bottom: $s10 !important;
+}
+
+.ml10 {
+  margin-left: $s10 !important;
+}
+// width ------------------------------------------
+
+.w200 {
+  width: 200px !important;
+}
+
+.w180 {
+  width: 180px !important;
+}
+
+.w100 {
+  width: 100px !important;
+}
+
+.w80 {
+  width: 80px !important;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+// other ------------------------------------------
+.operation-button {
+  margin-right: $s8;
+  margin-bottom: $s4;
+  font-size: $s12;
+}
