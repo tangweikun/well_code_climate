@@ -55,9 +55,6 @@ function StudentFace() {
               setCurrentId(_get(record, 'sid'));
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             查看模板
           </AuthButton>
@@ -69,9 +66,6 @@ function StudentFace() {
                 setCurrentId(_get(record, 'sid'));
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               审核
             </AuthButton>
@@ -85,9 +79,6 @@ function StudentFace() {
               }
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             作废
           </AuthButton>

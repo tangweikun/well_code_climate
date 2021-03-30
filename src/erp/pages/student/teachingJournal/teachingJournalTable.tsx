@@ -215,9 +215,6 @@ export default function TeachingJournalTable(props: any) {
               setDefaultActiveKey('1');
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             详情
           </AuthButton>
@@ -226,9 +223,6 @@ export default function TeachingJournalTable(props: any) {
               <AuthButton
                 authId={checkStatusButton}
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={async () => {
                   setCurrentRecord(record);
                   _switchVisible();
@@ -249,9 +243,6 @@ export default function TeachingJournalTable(props: any) {
                 loading={_get(currentRecord, 'classid') === _get(record, 'classid') && uploadLoading}
                 authId={uploadButton}
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={async () => {
                   setCurrentRecord(record);
                   uploadRun({
@@ -276,9 +267,6 @@ export default function TeachingJournalTable(props: any) {
                 });
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               查询审核结果
             </AuthButton>

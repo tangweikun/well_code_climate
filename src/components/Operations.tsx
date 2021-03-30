@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Modal } from 'antd';
 import { _get } from 'utils';
-import { useDeleteConfirm } from 'hooks';
+import { useConfirm } from 'hooks';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { AuthButton } from 'components';
 
@@ -19,7 +19,7 @@ interface IOperations {
 
 export default function Operations(props: IOperations) {
   const { operations = [], _handleEdit, refreshTable, record, _handleDetail } = props;
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [changeSchoolLoading, setChangeSchoolLoading] = useState(false);
   const [registerLoading, setRegisterLoading] = useState(false);
@@ -31,15 +31,7 @@ export default function Operations(props: IOperations) {
 
         if (type === 'EDIT') {
           return (
-            <AuthButton
-              className="operation-button"
-              key={index}
-              authId={authId}
-              onClick={() => _handleEdit(record)}
-              type="primary"
-              ghost
-              size="small"
-            >
+            <AuthButton className="operation-button" key={index} authId={authId} onClick={() => _handleEdit(record)}>
               {title || '编辑'}
             </AuthButton>
           );
@@ -64,9 +56,6 @@ export default function Operations(props: IOperations) {
                 })
               }
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               {title || '删除'}
             </AuthButton>
@@ -75,15 +64,7 @@ export default function Operations(props: IOperations) {
 
         if (type === 'DETAIL') {
           return (
-            <AuthButton
-              authId={authId}
-              key={index}
-              onClick={() => _handleDetail(record)}
-              className="operation-button"
-              type="primary"
-              ghost
-              size="small"
-            >
+            <AuthButton authId={authId} key={index} onClick={() => _handleDetail(record)} className="operation-button">
               详情
             </AuthButton>
           );
@@ -96,9 +77,6 @@ export default function Operations(props: IOperations) {
               authId={authId}
               key={index}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
               onClick={() => {
                 confirm({
                   title: `请确认${_get(record, 'name')}要转校？`,
@@ -140,9 +118,6 @@ export default function Operations(props: IOperations) {
                 setRegisterLoading(false);
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               {title || '备案'}
             </AuthButton>

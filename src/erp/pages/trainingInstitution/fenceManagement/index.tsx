@@ -99,9 +99,6 @@ function FenceManagement() {
           <AuthButton
             authId="trainingInstitution/fenceManagement:btn2"
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
             onClick={() => {
               _switchReleaseVisible();
               setCurrentRecord(record);
@@ -116,9 +113,6 @@ function FenceManagement() {
               setCurrentRecord(record);
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             版本记录
           </AuthButton>

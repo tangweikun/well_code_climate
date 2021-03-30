@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Table, Button } from 'antd';
 import { _getClassList, _deleteClassRoom } from '../_api';
-import { useFetch, useVisible, useForceUpdate, useDeleteConfirm, useHash, useRequest } from 'hooks';
+import { useFetch, useVisible, useForceUpdate, useConfirm, useHash, useRequest } from 'hooks';
 import { _get } from 'utils';
 import AddOrEditClassRoom from './AddOrEditClassRoom';
 
@@ -9,7 +9,7 @@ export default function ConfigClassRoom(props: any) {
   const { onCancel, currentId } = props;
   const [visible, _switchVisible] = useVisible();
   const [isEdit, setIsEdit] = useState(false);
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
   const [ignore, forceUpdate] = useForceUpdate();
   const [currentRecord, setCurrentRecord] = useState({});
   const { data = [] } = useFetch({

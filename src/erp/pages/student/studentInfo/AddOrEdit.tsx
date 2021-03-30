@@ -19,6 +19,7 @@ import {
   _checkStudent,
   _updateSchStudentAcceptinfo,
   _confirmStudent,
+  _getJGRequestPlatformType,
 } from './_api';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
@@ -57,6 +58,9 @@ export default function AddOrEdit(props: any) {
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState();
   const [head_img_oss_id, setImgId] = useState('');
+  const [driveUrl, setDriveUrl] = useState(''); // 驾驶证图片url
+  const [drilicenceossid, setDrilicenceossid] = useState(''); // 驾驶证图片id
+
   // const [jump_fromarea, setJump_fromarea] = useState('');
   const [package_name, setPackage_name] = useState('');
   const [businessType, setBusinessType] = useState(_get(currentRecord, 'busitype', ''));
@@ -123,12 +127,19 @@ export default function AddOrEdit(props: any) {
         setIdCardRules(RULES.OTHER_IDCARD); //其他证件类型正则校验：40字符
         setDisabled(false);
       }
+      setDriveUrl(_get(data, 'drilicenceImgVO.drilicenceurl_show'));
     },
   });
 
   const { data: schoolData = [] } = useFetch({
     request: _getListAssociated,
   });
+
+  // 监管地址配置0：国交 1：至正
+  const { data: jGRequestPlatformType } = useFetch({
+    request: _getJGRequestPlatformType,
+  });
+
   // 教练列表
   useFetch({
     request: _getCoachList,
@@ -160,6 +171,7 @@ export default function AddOrEdit(props: any) {
       schId: Auth.get('schoolId'),
     },
   });
+
   //学员预报名培训车型
   const { data: preSignUpTrainCar = [] } = useFetch({
     request: _getPreSignUpTrainCar,
@@ -350,6 +362,7 @@ export default function AddOrEdit(props: any) {
         phone: _get(values, 'phone'),
         address: _get(values, 'address'),
         head_img_oss_id,
+        drilicenceossid,
         busitype: _get(values, 'busitype'),
         drilicnum,
         fstdrilicdate: formatTime(_get(values, 'fstdrilicdate'), 'DATE'),
@@ -749,6 +762,8 @@ export default function AddOrEdit(props: any) {
                     disabled={isEdit && keyInfos.includes('busitype')}
                     onChange={(value: string) => {
                       setBusinessType(value);
+                      setDrilicenceossid('');
+                      setDriveUrl('');
                       setPackage_id('');
                       if (value === '1' || value === '11' || value === '12') {
                         if (cardtype === '1') {
@@ -810,6 +825,12 @@ export default function AddOrEdit(props: any) {
                     拍照
                   </span>
                 </ItemCol>
+                {/*业务类型为货运运营初领或货运运营增领，且配置监管地址为国交时才显示该项 jGRequestPlatformType:0 国交  businessType：11：初领 12：增领*/}
+                {jGRequestPlatformType === '0' && (businessType === '11' || businessType === '12') && (
+                  <ItemCol required span={8} label="驾驶证图片">
+                    <UploadPro imageUrl={driveUrl} setImageUrl={setDriveUrl} setImgId={setDrilicenceossid} />
+                  </ItemCol>
+                )}
               </Row>
 
               <Title>培训信息</Title>

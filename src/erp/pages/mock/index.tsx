@@ -3,11 +3,11 @@ import { Table, Button } from 'antd';
 import { _get } from 'utils';
 import { Search } from 'components';
 import { _getList, _deleteMock } from './_api';
-import { useRequest, useTablePro, useDeleteConfirm } from 'hooks';
+import { useRequest, useTablePro, useConfirm } from 'hooks';
 import AddOrEdit from './AddOrEdit';
 
 export default function Mock() {
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
   const {
     tableProps,
     search,

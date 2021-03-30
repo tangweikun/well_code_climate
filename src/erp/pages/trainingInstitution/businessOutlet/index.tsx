@@ -1,15 +1,7 @@
 // 营业网点信息管理
 import React, { useState } from 'react';
 import { message, Table } from 'antd';
-import {
-  useFetch,
-  useTablePagination,
-  useSearch,
-  useVisible,
-  useDeleteConfirm,
-  useForceUpdate,
-  useRequest,
-} from 'hooks';
+import { useFetch, useTablePagination, useSearch, useVisible, useConfirm, useForceUpdate, useRequest } from 'hooks';
 import { _getBusinessOutlet, _deleteBusinessOutlet, _getTeachInfo } from './_api';
 import AddOrEdit from './AddOrEdit';
 import ConfigSchool from './config/ConfigSchool';
@@ -33,7 +25,7 @@ function BusinessOutlet() {
   const [detailVisible, _switchDetailVisible] = useVisible(); // 详情
   const [pagination, setPagination, tablePagination] = useTablePagination({});
   const [ignore, forceUpdate] = useForceUpdate();
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
 
   const { isLoading, data } = useFetch({
     request: _getBusinessOutlet,
@@ -116,9 +108,6 @@ function BusinessOutlet() {
               setCurrentRecord(record);
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             详情
           </AuthButton>
@@ -130,9 +119,6 @@ function BusinessOutlet() {
               setIsEdit(true);
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             编辑
           </AuthButton>
@@ -140,9 +126,6 @@ function BusinessOutlet() {
             <AuthButton
               authId="trainingInstitution/businessOutlet:btn4"
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
               onClick={() => {
                 //实操 && !模拟 &&!理论 提示没有权限
                 if (
@@ -164,9 +147,6 @@ function BusinessOutlet() {
               <AuthButton
                 authId="trainingInstitution/businessOutlet:btn5"
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={() => {
                   _switchClassVisible();
                   setCurrentId(_get(record, 'sbnid'));
@@ -178,9 +158,6 @@ function BusinessOutlet() {
             <AuthButton
               authId="trainingInstitution/businessOutlet:btn6"
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
               onClick={() => {
                 _switchCoachPersonVisible();
                 setCurrentId(_get(record, 'sbnid'));
@@ -191,9 +168,6 @@ function BusinessOutlet() {
             <AuthButton
               authId="trainingInstitution/businessOutlet:btn7"
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
               onClick={() => {
                 _switchCoachCarVisible();
                 setCurrentId(_get(record, 'sbnid'));
@@ -213,9 +187,6 @@ function BusinessOutlet() {
                 })
               }
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               删除
             </AuthButton>

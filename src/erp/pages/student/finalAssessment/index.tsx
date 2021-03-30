@@ -98,9 +98,6 @@ function FinalAssessment() {
               _handleEdit(record, _get(record, 'id', ''));
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             编辑
           </AuthButton>

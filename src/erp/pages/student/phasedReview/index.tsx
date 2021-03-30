@@ -279,9 +279,6 @@ function AssesserInfo() {
                 setSignVisible();
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               学员签字
             </AuthButton>
@@ -313,9 +310,6 @@ function AssesserInfo() {
                 }
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               上报
             </AuthButton>
@@ -335,7 +329,8 @@ function AssesserInfo() {
                 });
               }}
               className="operation-button"
-              size="small"
+              ghost={false}
+              type="default"
             >
               撤销
             </AuthButton>
@@ -346,9 +341,6 @@ function AssesserInfo() {
               loading={_get(currentRecord, 'said') === _get(record, 'said') && getResultLoading}
               authId="student/phasedReview:btn3"
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
               onClick={() => {
                 setCurrentRecord(record);
                 getResultRun({ id: record.said });

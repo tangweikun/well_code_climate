@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 interface IUseBoolean {
-  (defaultValue?: boolean): [boolean, { _switch: () => void; _setTruthy: () => void; _setFalsy: () => void }];
+  (defaultValue?: boolean): [boolean, { _switch(): void; _setTruthy(): void; _setFalsy(): void }];
 }
 
 export const useBoolean: IUseBoolean = (defaultValue = false) => {

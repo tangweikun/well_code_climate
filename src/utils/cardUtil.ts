@@ -133,7 +133,10 @@ export async function getSamid() {
 
 /*读取身份证信息*/
 export async function getIdCardInfo() {
-  return await _request('http://127.0.0.1:12321/WlSdt_api/ReadBaseMsg?Port=1001&ReadType=0');
+  await startPort();
+  const res = await _request('http://127.0.0.1:12321/WlSdt_api/ReadBaseMsg?Port=1001&ReadType=0');
+  await closePort();
+  return res;
 }
 
 /*读取身份证流程 */
@@ -152,12 +155,17 @@ export async function getIdCard() {
 
 /*读取身份证物理卡号*/
 export async function getIdCardId() {
-  return await _request('http://127.0.0.1:12321/WlSdt_api/GetCardNo?Port=1001');
+  await startPort();
+  const res = await _request('http://127.0.0.1:12321/WlSdt_api/GetCardNo?Port=1001');
+  await closePort();
+  return res;
 }
 
 /*读取身份证照片*/
 export async function getIdCardImg() {
+  await startPort();
   const res = await _request('http://127.0.0.1:12321/WlSdt_api/ReadBaseMsg?Port=1001&ReadType=1');
+  await closePort();
   return res;
 }
 

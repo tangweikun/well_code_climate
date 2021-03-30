@@ -115,9 +115,6 @@ function CoachCard() {
               applicationRun({ cid: _get(record, 'cid', ''), cardTypeEnum: 'IC_CARD' });
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             申请
           </AuthButton>
@@ -129,14 +126,10 @@ function CoachCard() {
               getApplicationRun({ cid: _get(record, 'cid', '') });
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             获取申请结果
           </AuthButton>
 
-          {/* TEST ME */}
           <AuthButton
             insertWhen={!_get(record, 'barcode', '')} // 未制卡的教练显示制卡按钮，已制卡的教练显示补卡及延期按钮
             authId="coach/coachCard:btn1"
@@ -145,14 +138,10 @@ function CoachCard() {
               await makeCard(false);
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             制卡
           </AuthButton>
 
-          {/* TEST ME */}
           <AuthButton
             insertWhen={_get(record, 'barcode', '')}
             authId="coach/coachCard:btn2"
@@ -161,9 +150,6 @@ function CoachCard() {
               await makeCard(true);
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             补卡
           </AuthButton>
@@ -176,9 +162,6 @@ function CoachCard() {
               run({ cids: [_get(record, 'cid', '')] });
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             延期
           </AuthButton>
@@ -190,9 +173,6 @@ function CoachCard() {
               setFingerVisible();
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             指纹采集
           </AuthButton>

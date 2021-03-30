@@ -88,9 +88,6 @@ export default function ForecastExpected(props: any) {
               setCurrentRecord(record);
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             详情
           </AuthButton>
@@ -99,9 +96,6 @@ export default function ForecastExpected(props: any) {
             authId="student/forecastExpected:btn2"
             onClick={() => _handleEdit(record, _get(record, 'sid', ''))}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             编辑
           </AuthButton>
@@ -111,9 +105,6 @@ export default function ForecastExpected(props: any) {
             authId="student/forecastChecked:btn1"
             onClick={() => _handleEdit(record, _get(record, 'sid', ''))}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             审核
           </AuthButton>
@@ -131,9 +122,6 @@ export default function ForecastExpected(props: any) {
               setConfirmation(true);
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             转正
           </AuthButton>

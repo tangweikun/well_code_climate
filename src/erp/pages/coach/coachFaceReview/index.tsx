@@ -58,9 +58,6 @@ function CoachFaceReview() {
               setCurrentId(_get(record, 'cid'));
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             查看模板
           </AuthButton>
@@ -72,9 +69,6 @@ function CoachFaceReview() {
                 setCurrentId(_get(record, 'cid'));
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               审核
             </AuthButton>
@@ -86,9 +80,6 @@ function CoachFaceReview() {
               run({ id: _get(record, 'cid') });
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             作废
           </AuthButton>

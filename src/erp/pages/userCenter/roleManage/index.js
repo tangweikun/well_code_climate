@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { _get } from 'utils';
 import { Table, Button, Input } from 'antd';
-import { useFetch, usePagination, useForceUpdate, useDeleteConfirm, useVisible, useRequest } from 'hooks';
+import { useFetch, usePagination, useForceUpdate, useConfirm, useVisible, useRequest } from 'hooks';
 import { _getRoleList, _deleteRole } from './_api';
 import { PlusOutlined } from '@ant-design/icons';
 import Add from './Add';
@@ -24,7 +24,7 @@ export default function RoleManage() {
   const [allocateResourcesVisible, _switchAllocateResourceVisible] = useVisible();
   const [ignore, forceUpdate] = useForceUpdate();
   const [ignore2, forceUpdateTable] = useForceUpdate();
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
   const [name, setName] = useState('');
   const [roleId, setRoleId] = useState(null);
   const [treeData, setTreeData] = useState([]);

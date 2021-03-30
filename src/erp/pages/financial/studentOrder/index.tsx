@@ -99,9 +99,6 @@ function StudentOrder(props: any) {
               setCurrentRecord(record);
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             详情
           </AuthButton>
@@ -114,9 +111,6 @@ function StudentOrder(props: any) {
                   _switchUpdatePriceVisible();
                 }}
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
               >
                 改价
               </AuthButton>

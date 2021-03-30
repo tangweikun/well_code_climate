@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { omit } from 'lodash';
 import { Table, Modal, Input, Select, TimePicker, Button, Radio, message } from 'antd';
 import moment from 'moment';
-import { useOptions, useRequest, useFetch, useDeleteConfirm } from 'hooks';
+import { useOptions, useRequest, useFetch, useConfirm } from 'hooks';
 import { _updateScheduleByKey, _deleteSchedule, _getScheduleCategory } from './_api';
 import { getCourseStatus, EXPIRED, FILLED, CAN_APPOINTMENT, _get } from 'utils';
 import { RULES } from 'constants/rules';
@@ -22,7 +22,7 @@ export default function EditCourseTable(props: any) {
       timeDuration: [moment().hour(x.beginhour).minute(x.beginmin), moment().hour(x.endhour).minute(x.endmin)],
     })) || [],
   );
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
   const carTypeOptions = useOptions('business_scope'); // 经营车型
   const { loading: confirmLoading, run } = useRequest(_updateScheduleByKey, { onSuccess: _switchEditCourseVisible });
 

@@ -4,7 +4,7 @@ import { useFetch, useForceUpdate, useSearch, useVisible } from 'hooks';
 
 interface IUseTable {
   (initialState: {
-    request(...params: any[]): void; // 获取表单数据的请求
+    request(...params: any[]): any; // 获取表单数据的请求
     initialSearch?: {}; // Search组件需要设置的默认值
     extraParams?: object; // 额外的查询参数
     requiredFields?: string[]; // 获取表单数据的请求的必传字段

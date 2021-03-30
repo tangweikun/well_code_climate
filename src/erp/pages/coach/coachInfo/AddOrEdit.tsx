@@ -38,6 +38,8 @@ export default function AddOrEdit(props: any) {
   const [fileList, setFileList] = useState([]);
   const [readCardLoading, setReadCardLoading] = useState(false);
 
+  const [uploadKey, setUploadKey] = useState('0');
+
   const [updatePluginVisible, setUpdatePluginVisible] = useVisible();
   const { loading: confirmLoading, run } = useRequest(isEdit ? _updateInfo : _addInfo, {
     onSuccess: onOk,
@@ -63,6 +65,7 @@ export default function AddOrEdit(props: any) {
       setFileList(other_license);
       setCarid(_get(data, 'carid'));
       setCarOptionData([{ label: _get(data, 'licnum'), value: _get(data, 'carid') }]);
+      setUploadKey('1');
     },
   });
 
@@ -374,16 +377,27 @@ export default function AddOrEdit(props: any) {
                     />
                   </div>
                   {_get(data, 'coaCoachExtinfoEntity.driverLicenseImageupFlag') === '1' && (
-                    <CheckCircleOutlined style={{ color: '#0f0' }} />
+                    <div className="pd80">
+                      <CheckCircleOutlined className="green" />
+                    </div>
                   )}
                 </div>
               </ItemCol>
               <ItemCol label="职业资格等级证">
-                <UploadPro
-                  imageUrl={careerLicenseImgUrl}
-                  setImageUrl={setCareerLicenseImgUrl}
-                  setImgId={setCareerLicenseOssId}
-                />
+                <div className="flex">
+                  <div className="w100 mr20">
+                    <UploadPro
+                      imageUrl={careerLicenseImgUrl}
+                      setImageUrl={setCareerLicenseImgUrl}
+                      setImgId={setCareerLicenseOssId}
+                    />
+                  </div>
+                  {_get(data, 'coaCoachExtinfoEntity.careerLicenseImageupFlag') === '1' && (
+                    <div className="pd80">
+                      <CheckCircleOutlined className="green" />
+                    </div>
+                  )}
+                </div>
               </ItemCol>
             </Row>
             <Row>
@@ -394,7 +408,16 @@ export default function AddOrEdit(props: any) {
                 </span>
               </ItemCol>
               <ItemCol label="其它资格证">
-                <MultipleUpload limit={2} fileList={fileList} setFileList={setFileList} />
+                <div className="flex">
+                  <div className="mr20">
+                    <MultipleUpload limit={2} fileList={fileList} setFileList={setFileList} key={uploadKey} />
+                  </div>
+                  {_get(data, 'coaCoachExtinfoEntity.otherLicenseImageupFlag') === '1' && (
+                    <div className="pd80">
+                      <CheckCircleOutlined className="green" />
+                    </div>
+                  )}
+                </div>
               </ItemCol>
             </Row>
           </Form>

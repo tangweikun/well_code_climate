@@ -200,6 +200,16 @@ $s20: 20px;
 .ml10 {
   margin-left: $s10 !important;
 }
+
+// padding
+.pd80 {
+  padding-top: 80px !important;
+}
+
+.pd40 {
+  padding-top: 40px !important;
+}
+
 // width ------------------------------------------
 
 .w200 {
@@ -218,8 +228,17 @@ $s20: 20px;
   width: 80px !important;
 }
 
+.w60 {
+  width: 60px !important;
+}
+
 .full-width {
   width: 100% !important;
+}
+
+// color
+.green {
+  color: $color-green !important;
 }
 
 // other ------------------------------------------

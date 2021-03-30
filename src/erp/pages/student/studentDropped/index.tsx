@@ -6,7 +6,6 @@ import {
   useTablePagination,
   useFetch,
   useForceUpdate,
-  useDeleteConfirm,
   useConfirm,
   useHash,
   useVisible,
@@ -23,7 +22,7 @@ function StudentDropped() {
   const [search, _handleSearch] = useSearch();
   const [pagination, setPagination, tablePagination] = useTablePagination({});
   const [ignore, forceUpdate] = useForceUpdate();
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
   const [_showConfirm] = useConfirm();
   const [visible, _switchVisible] = useVisible();
   const [agreeLoading, setAgreeLoading] = useState(false);
@@ -97,9 +96,6 @@ function StudentDropped() {
                 retire();
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               同意
             </AuthButton>
@@ -123,9 +119,6 @@ function StudentDropped() {
                 setRefuseLoading(false);
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               拒绝
             </AuthButton>
@@ -152,9 +145,6 @@ function StudentDropped() {
                 })
               }
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               撤销
             </AuthButton>
@@ -168,9 +158,6 @@ function StudentDropped() {
                 run({ id: _get(record, 'said') });
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               监管注销
             </AuthButton>

@@ -1,8 +1,7 @@
 import { useRef, useEffect } from 'react';
 
-// FIXME: 尝试使用泛型
-export function usePrevious(value: any): any {
-  const ref = useRef();
+export function usePrevious<T>(value: T): T | undefined {
+  const ref = useRef<T>();
 
   useEffect(() => {
     ref.current = value;

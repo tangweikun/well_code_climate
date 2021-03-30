@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { _get } from 'utils';
 import { Table, Button, Input } from 'antd';
-import { useFetch, usePagination, useForceUpdate, useDeleteConfirm, useVisible, useRequest } from 'hooks';
+import { useFetch, usePagination, useForceUpdate, useConfirm, useVisible, useRequest } from 'hooks';
 import { _getUserList, _deleteUser, _getTreeByLoginUser } from './_api';
 import { PlusOutlined } from '@ant-design/icons';
 import Add from './Add';
@@ -19,7 +19,7 @@ export default function UserManage() {
   const [visible, _switchVisible] = useVisible();
   const [inviteVisible, _switchInviteVisible] = useVisible();
   const [ignore, forceUpdate] = useForceUpdate();
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
   const [name, setName] = useState('');
   const [username, setUserName] = useState('');
   const [treeData, setTreeData] = useState([]);

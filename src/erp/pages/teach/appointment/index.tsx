@@ -54,9 +54,6 @@ export default function SimulationAppointment(props: any) {
               _switchVisible();
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             新增课程
           </AuthButton>
@@ -69,9 +66,6 @@ export default function SimulationAppointment(props: any) {
               _switchCourseReservationVisible();
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             约排课
           </AuthButton>

@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { useInterval } from 'hooks';
 
-export function useCountdown(seconds: number = 60) {
+interface IReturn {
+  isFirstCounting: boolean;
+  count: number;
+  setIsCounting(count: boolean): void;
+  isCounting: boolean;
+}
+
+export function useCountdown(seconds: number = 60): IReturn {
   const [isCounting, setIsCounting] = useState(false);
   const [count, setCount] = useState(seconds);
   const [isFirstCounting, setIsFirstCounting] = useState(true);

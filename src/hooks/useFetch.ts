@@ -1,14 +1,33 @@
 import { useState, useEffect } from 'react';
 import { _get } from 'utils';
+import { AxiosResponse } from 'axios';
+
+// TODO: twk-监听request的参数类型
+interface IParams<T = { [key: string]: any }> {
+  request(query?: T): Promise<AxiosResponse | undefined | void>;
+  query?: T;
+  depends?: any[];
+  callback?(data: any): void;
+  requiredFields?: string[];
+  forceCancel?: boolean;
+}
+
+interface IReturn {
+  res: any;
+  isLoading: boolean;
+  finished: boolean;
+  isError: boolean;
+  data: any;
+}
 
 export const useFetch = ({
-  request = (query: any) => {},
-  query = {} as any,
-  depends = [] as any[],
-  callback = (data: any) => {},
-  requiredFields = [] as any[],
-  forceCancel = false as boolean, // 取消请求
-}) => {
+  request = () => Promise.resolve(),
+  query = {},
+  depends = [],
+  callback = () => {},
+  requiredFields = [],
+  forceCancel = false, // 取消请求
+}: IParams): IReturn => {
   const [fetchStore, setFetchStore] = useState({ res: null, isLoading: true, isError: false, finished: false } as any);
 
   useEffect(() => {

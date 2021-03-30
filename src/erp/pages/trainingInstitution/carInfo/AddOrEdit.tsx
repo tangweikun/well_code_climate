@@ -22,6 +22,7 @@ export default function AddOrEdit(props: any) {
 
   // 其他资格证
   const [fileList, setFileList] = useState([]);
+  const [uploadKey, setUploadKey] = useState('0');
 
   const { data, isLoading } = useFetch({
     query: {
@@ -39,6 +40,7 @@ export default function AddOrEdit(props: any) {
         };
       });
       setFileList(other_license);
+      setUploadKey('1');
     },
   });
 
@@ -159,16 +161,38 @@ export default function AddOrEdit(props: any) {
                 <div className="w100 mr20">
                   <UploadPro imageUrl={imageUrl} setImageUrl={setImageUrl} setImgId={setImgId} />
                 </div>
-                {_get(data, 'certImageupFlag') === '1' && <CheckCircleOutlined style={{ color: '#0f0' }} />}
+                {_get(data, 'certImageupFlag') === '1' && (
+                  <div className="pd80">
+                    <CheckCircleOutlined className="green" />
+                  </div>
+                )}
               </div>
             </ItemCol>
             <ItemCol label="道路运输证">
-              <UploadPro imageUrl={roadImageUrl} setImageUrl={setRoadImageUrl} setImgId={setRoadImgId} />
+              <div className="flex">
+                <div className="w100 mr20">
+                  <UploadPro imageUrl={roadImageUrl} setImageUrl={setRoadImageUrl} setImgId={setRoadImgId} />
+                </div>
+                {_get(data, 'roadLicenseImageupFlag') === '1' && (
+                  <div className="pd80">
+                    <CheckCircleOutlined className="green" />
+                  </div>
+                )}
+              </div>
             </ItemCol>
           </Row>
           <Row>
             <ItemCol label="其他资格证">
-              <MultipleUpload limit={2} fileList={fileList} setFileList={setFileList} />
+              <div className="flex">
+                <div className="mr20">
+                  <MultipleUpload limit={2} fileList={fileList} setFileList={setFileList} key={uploadKey} />
+                </div>
+                {_get(data, 'otherLicenseImageupFlag') === '1' && (
+                  <div className="pd80">
+                    <CheckCircleOutlined className="green" />
+                  </div>
+                )}
+              </div>
             </ItemCol>
           </Row>
         </Form>

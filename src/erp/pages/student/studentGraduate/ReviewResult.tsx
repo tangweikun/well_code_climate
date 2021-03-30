@@ -9,6 +9,7 @@ export default function UploadArr(props: any) {
   const { onCancel, onOk, selectedRowKeys } = props;
   const [isapply, setIsapply] = useState('2') as any; // 2:通过
   const [respmsg, setRespmsg] = useState(''); //拒绝原因
+  const [loading, setLoading] = useState(false);
 
   return (
     <>
@@ -16,8 +17,10 @@ export default function UploadArr(props: any) {
         visible
         title={'结业审核'}
         maskClosable={false}
+        confirmLoading={loading}
         onCancel={onCancel}
         onOk={async () => {
+          setLoading(true);
           let errCount = 0;
           for (let i = 0; i < selectedRowKeys.length; i++) {
             const res = await _endReview({
@@ -29,6 +32,7 @@ export default function UploadArr(props: any) {
               errCount++;
             }
           }
+          setLoading(false);
           if (errCount === 0) {
             message.success('全部上传成功');
           } else {

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-interface UseSearch {
+interface IUseSearch {
   (initialState?: object): [object, (name: string, value: any) => void];
 }
 
-export const useSearch: UseSearch = (initialState = {}) => {
-  const [search, setSearch] = useState<any>(initialState);
+export const useSearch: IUseSearch = (initialState = {}) => {
+  const [search, setSearch] = useState(initialState as object);
 
   function _handleSearch(name: string, value: any) {
     setSearch((search: any) => ({ ...search, [name]: value }));

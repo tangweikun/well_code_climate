@@ -3,12 +3,12 @@ import React from 'react';
 import { _getBranchMechanism, _deleteTeBranchMechanism } from './_api';
 import AddOrEdit from './AddOrEdit';
 import { AuthButton, Search } from 'components';
-import { useDeleteConfirm, useRequest, useTablePro } from 'hooks';
+import { useConfirm, useRequest, useTablePro } from 'hooks';
 import { _get } from 'utils';
 import { Table } from 'antd';
 
 export default function BranchMechanism() {
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
 
   const {
     tableProps,
@@ -62,9 +62,6 @@ export default function BranchMechanism() {
               });
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             删除
           </AuthButton>
@@ -75,9 +72,6 @@ export default function BranchMechanism() {
               _handleEdit(record, _get(record, 'bid', ''));
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             编辑
           </AuthButton>

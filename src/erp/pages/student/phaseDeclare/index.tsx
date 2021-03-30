@@ -4,7 +4,7 @@ import { _getStudentTableList, _getApplyResult } from './_api';
 import { _getStudentList } from 'api';
 import { useTablePro, useOptions, useHash } from 'hooks';
 import { Table, Button } from 'antd';
-import { Search } from 'components';
+import { Search, AuthButton } from 'components';
 import AddOrEdit from './AddOrEdit';
 import { _get } from 'utils';
 
@@ -47,22 +47,20 @@ export default function PhaseDeclare() {
       render: (_: void, record: any) => {
         return (
           <>
-            <Button
+            <AuthButton
+              authId="student/phaseDeclare:btn1"
+              insertWhen={_get(record, 'trainTimeApplyStatus') === '1' || _get(record, 'trainTimeApplyStatus') === '3'}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
               onClick={() => {
                 _handleEdit(record, _get(record, 'sid', ''));
               }}
             >
               编辑
-            </Button>
-            <Button
+            </AuthButton>
+            <AuthButton
+              authId="student/phaseDeclare:btn2"
+              insertWhen={_get(record, 'trainTimeApplyStatus') === '1'}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
               onClick={async () => {
                 const res = await _getApplyResult({ sid: _get(record, 'sid', '') });
                 if (_get(res, 'code') === 200) {
@@ -71,7 +69,7 @@ export default function PhaseDeclare() {
               }}
             >
               获取申报结果
-            </Button>
+            </AuthButton>
           </>
         );
       },

@@ -174,9 +174,6 @@ function TeachingArea() {
               setCurrentId(_get(record, 'rid'));
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             详情
           </AuthButton>
@@ -192,9 +189,6 @@ function TeachingArea() {
                   setIsEdit(true);
                 }}
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
               >
                 编辑
               </AuthButton>
@@ -222,9 +216,6 @@ function TeachingArea() {
                       })
                     }
                     className="operation-button"
-                    type="primary"
-                    ghost
-                    size="small"
                   >
                     注销
                   </AuthButton>
@@ -237,9 +228,6 @@ function TeachingArea() {
                   loading={_get(currentRecord, 'rid') === _get(record, 'rid') && startBtnLoading}
                   authId="trainingInstitution/carInfo:btn4"
                   className="operation-button"
-                  type="primary"
-                  ghost
-                  size="small"
                   onClick={async () => {
                     setCurrentRecord(record);
                     _showConfirm({
@@ -263,9 +251,6 @@ function TeachingArea() {
                   loading={_get(currentRecord, 'rid') === _get(record, 'rid') && endBtnLoading}
                   authId="trainingInstitution/carInfo:btn4"
                   className="operation-button"
-                  type="primary"
-                  ghost
-                  size="small"
                   onClick={async () => {
                     setCurrentRecord(record);
                     _showConfirm({
@@ -287,9 +272,6 @@ function TeachingArea() {
                 loading={_get(currentRecord, 'rid') === _get(record, 'rid') && recordLoading}
                 authId="trainingInstitution/teachingArea:btn5"
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={() => {
                   setCurrentRecord(record);
                   recordRun({ id: _get(record, 'rid') });
@@ -303,9 +285,6 @@ function TeachingArea() {
                 loading={_get(currentRecord, 'rid') === _get(record, 'rid') && getResLoading}
                 authId="trainingInstitution/teachingArea:btn7"
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={() => {
                   setCurrentRecord(record);
                   getResRun({ id: _get(record, 'rid') });
@@ -317,9 +296,6 @@ function TeachingArea() {
             <AuthButton
               authId="trainingInstitution/teachingArea:btn8"
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
               onClick={() => {
                 _switchModelVisible();
                 setCurrentId(_get(record, 'rid'));

@@ -96,9 +96,6 @@ function CarInfo() {
             authId="trainingInstitution/carInfo:btn2"
             onClick={() => _handleDetails(record)}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             详情
           </AuthButton>
@@ -114,9 +111,6 @@ function CarInfo() {
                 authId="trainingInstitution/carInfo:btn3"
                 onClick={() => _handleEdit(record)}
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
               >
                 编辑
               </AuthButton>
@@ -128,9 +122,6 @@ function CarInfo() {
                 loading={_get(currentRecord, 'carid') === _get(record, 'carid') && startBtnLoading}
                 authId="trainingInstitution/carInfo:btn4"
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={async () => {
                   setCurrentRecord(record);
                   setStartBtnLoading(true);
@@ -161,9 +152,6 @@ function CarInfo() {
                 loading={_get(currentRecord, 'carid') === _get(record, 'carid') && stopBtnLoading}
                 authId="trainingInstitution/carInfo:btn5"
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={async () => {
                   setCurrentRecord(record);
                   setStopBtnLoading(true);
@@ -200,9 +188,6 @@ function CarInfo() {
                     loading={_get(currentRecord, 'carid') === _get(record, 'carid') && recordLoading}
                     authId="trainingInstitution/carInfo:btn6"
                     className="operation-button"
-                    type="primary"
-                    ghost
-                    size="small"
                     onClick={async () => {
                       setCurrentRecord(record);
                       recordRun({ carid: _get(record, 'carid', '') });
@@ -233,9 +218,6 @@ function CarInfo() {
                     })
                   }
                   className="operation-button"
-                  type="primary"
-                  ghost
-                  size="small"
                 >
                   注销
                 </AuthButton>
@@ -246,9 +228,6 @@ function CarInfo() {
                 loading={_get(currentRecord, 'carid') === _get(record, 'carid') && resultLoading}
                 authId="trainingInstitution/carInfo:btn7"
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={async () => {
                   setCurrentRecord(record);
                   resultRun({ carid: _get(record, 'carid', '') });
@@ -260,9 +239,6 @@ function CarInfo() {
             <AuthButton
               authId="trainingInstitution/carInfo:btn9"
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
               onClick={() => {
                 setCurrentRecord(record);
                 _switchModelVisible();

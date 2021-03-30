@@ -419,3 +419,9 @@ export async function _getTrainClassReport(query: {
 }) {
   return await request(`${CORE_PREFIX}/v1/student/getTrainClassReport`, 'GET', query);
 }
+
+// 监管地址配置0：国交 1：至正
+// http://192.168.192.132:3000/project/193/interface/api/25448
+export async function _getJGRequestPlatformType() {
+  return await request(`${CORE_PREFIX}/v1/sysbase/code/getJGRequestPlatformType`, 'GET');
+}

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Table } from 'antd';
 import { previewPdf, _get } from 'utils';
-import { useFetch, useTablePagination, useVisible, useDeleteConfirm, useForceUpdate, useRequest } from 'hooks';
+import { useFetch, useTablePagination, useVisible, useConfirm, useForceUpdate, useRequest } from 'hooks';
 import { _getContractTemplateList, _getContractContent, _deleteInfo } from './_api';
 import AddOrEdit from './AddOrEdit';
 import { AuthButton } from 'components';
@@ -13,7 +13,7 @@ function ContractTemplate() {
   const [visible, _switchVisible] = useVisible();
   const [pagination, setPagination, tablePagination] = useTablePagination({});
   const [ignore, forceUpdate] = useForceUpdate();
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
   const [currentRecord, setCurrentRecord] = useState(null);
 
   const { isLoading, data } = useFetch({
@@ -57,9 +57,6 @@ function ContractTemplate() {
               });
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             预览
           </AuthButton>
@@ -71,9 +68,6 @@ function ContractTemplate() {
               setIsEdit(true);
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             模板配置
           </AuthButton>
@@ -89,9 +83,6 @@ function ContractTemplate() {
               })
             }
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             删除
           </AuthButton>

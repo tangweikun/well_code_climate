@@ -116,9 +116,6 @@ export default function StudentCardMaking() {
               applicationRun({ sid: _get(record, 'sid', ''), cardTypeEnum: 'IC_CARD' });
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             申请
           </AuthButton>
@@ -130,9 +127,6 @@ export default function StudentCardMaking() {
               getApplicationRun({ sid: _get(record, 'sid', '') });
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             获取申请结果
           </AuthButton>
@@ -144,9 +138,6 @@ export default function StudentCardMaking() {
                 await makeCard(false);
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               制卡
             </AuthButton>
@@ -160,9 +151,6 @@ export default function StudentCardMaking() {
                   await makeCard(true);
                 }}
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
               >
                 补卡
               </AuthButton>
@@ -174,9 +162,6 @@ export default function StudentCardMaking() {
                   upodateRun({ sid: _get(record, 'sid', '') });
                 }}
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
               >
                 延期
               </AuthButton>

@@ -4,11 +4,11 @@ import { _get } from 'utils';
 import { Switch, Table } from 'antd';
 import { _getTimeRule, _updateEnableFlag, _deleteTimeRule } from './_api';
 import AddOrEdit from './AddOrEdit';
-import { useTablePro, useHash, useOptions, useDeleteConfirm, useRequest } from 'hooks';
+import { useTablePro, useHash, useOptions, useConfirm, useRequest } from 'hooks';
 import { AuthButton, Search } from 'components';
 
 export default function TimeRule() {
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
   const traincodeOptions = useOptions('combo'); // 培训课程
   const traincodehash = useHash('combo'); // 培训课程
 
@@ -72,9 +72,6 @@ export default function TimeRule() {
               });
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             删除
           </AuthButton>
@@ -86,9 +83,6 @@ export default function TimeRule() {
               setOtherState({ ...otherState, currentTrainCode: _get(record, 'traincode', '') });
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             编辑
           </AuthButton>

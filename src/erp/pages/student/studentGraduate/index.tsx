@@ -72,32 +72,27 @@ function StudentGraduate() {
       dataIndex: 'operate',
       render: (_: void, record: any) => (
         <div>
-          {_get(record, 'isapply') === '1' && (
-            <AuthButton
-              authId="student/studentGraduate:btn2"
-              onClick={async () => {
-                const res = await _getFileUrl({ id: _get(record, 'sid') });
-                if (_get(res, 'code') === 200) {
-                  window.open(_get(res, 'data'));
-                }
-              }}
-              className="operation-button"
-              type="primary"
-              ghost
-              size="small"
-            >
-              结业证查看
-            </AuthButton>
-          )}
+          <AuthButton
+            authId="student/studentGraduate:btn2"
+            onClick={async () => {
+              const res = await _getFileUrl({ id: _get(record, 'sid') });
+              if (_get(res, 'code') === 200) {
+                window.open(_get(res, 'data'));
+              } else {
+                message.error(_get(res, 'message'));
+              }
+            }}
+            className="operation-button"
+          >
+            结业证查看
+          </AuthButton>
 
+          {/*isapply:0 待审核 */}
           {_get(record, 'isapply') === '0' && (
             <AuthButton
               loading={_get(currentRecord, 'said') === _get(record, 'said') && uploadLoading}
               authId="student/studentGraduate:btn3"
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
               onClick={() => {
                 setCurrentRecord(record);
                 uploadRun({ said: _get(record, 'said') });

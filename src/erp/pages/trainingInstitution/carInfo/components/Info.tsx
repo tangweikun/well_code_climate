@@ -5,6 +5,7 @@ import moment from 'moment';
 import { useFetch, useHash } from 'hooks';
 import { _getCarInfo } from '../_api';
 import { Loading, Title, PopoverImg } from 'components';
+import { CheckCircleOutlined } from '@ant-design/icons';
 
 export default function Info(props: any) {
   const [form] = Form.useForm();
@@ -101,12 +102,30 @@ export default function Info(props: any) {
         <Row>
           <Col span={12}>
             <Form.Item label="车辆照片">
-              <PopoverImg src={_get(data, 'car_img_url', '')} imgStyle={{ width: 60, height: 60 }} />
+              <div className="flex">
+                <div className="w60 mr20">
+                  <PopoverImg src={_get(data, 'car_img_url', '')} imgStyle={{ width: 60, height: 60 }} />
+                </div>
+                {_get(data, 'certImageupFlag') === '1' && (
+                  <div className="pd40">
+                    <CheckCircleOutlined className="green" />
+                  </div>
+                )}
+              </div>
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item label="道路运输证">
-              <PopoverImg src={_get(data, 'road_license_img_url', '')} imgStyle={{ width: 60, height: 60 }} />
+              <div className="flex">
+                <div className="w60 mr20">
+                  <PopoverImg src={_get(data, 'road_license_img_url', '')} imgStyle={{ width: 60, height: 60 }} />
+                </div>
+                {_get(data, 'roadLicenseImageupFlag') === '1' && (
+                  <div className="pd40">
+                    <CheckCircleOutlined className="green" />
+                  </div>
+                )}
+              </div>
             </Form.Item>
           </Col>
         </Row>
@@ -114,9 +133,24 @@ export default function Info(props: any) {
         <Row>
           <Col span={12}>
             <Form.Item label="其他资格证">
-              {_get(data, 'other_license', []).map((x: any) => {
-                return <PopoverImg src={_get(x, 'url', '')} imgStyle={{ width: 60, height: 60, marginRight: 10 }} />;
-              })}
+              <div className="flex">
+                <div className="mr10">
+                  {_get(data, 'other_license', []).map((x: any, index: number) => {
+                    return (
+                      <PopoverImg
+                        key={index}
+                        src={_get(x, 'url', '')}
+                        imgStyle={{ width: 60, height: 60, marginRight: 10 }}
+                      />
+                    );
+                  })}
+                </div>
+                {_get(data, 'otherLicenseImageupFlag') === '1' && (
+                  <div className="pd40">
+                    <CheckCircleOutlined className="green" />
+                  </div>
+                )}
+              </div>
             </Form.Item>
           </Col>
         </Row>

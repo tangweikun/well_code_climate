@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Table } from 'antd';
 import { _get } from 'utils';
-import { useFetch, useTablePagination, useForceUpdate, useDeleteConfirm, useVisible } from 'hooks';
+import { useFetch, useTablePagination, useForceUpdate, useConfirm, useVisible } from 'hooks';
 import { _getDetect, _deleteDetect } from '../_api';
 import AddOrEditDetect from './AddOrEditDetect';
 import { Loading } from 'components';
@@ -9,7 +9,7 @@ import { Loading } from 'components';
 function Detect(props: any) {
   const [pagination, setPagination, tablePagination] = useTablePagination({});
   const [ignore, forceUpdate] = useForceUpdate();
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
   const [visible, _switchVisible] = useVisible();
   const [isEdit, setIsEdit] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);

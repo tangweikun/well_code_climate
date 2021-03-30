@@ -122,9 +122,6 @@ function SecurityOfficerInfo() {
               setCurrentId(_get(record, 'cid'));
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             详情
           </AuthButton>
@@ -137,9 +134,6 @@ function SecurityOfficerInfo() {
                 setIsEdit(true);
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               编辑
             </AuthButton>
@@ -152,9 +146,6 @@ function SecurityOfficerInfo() {
               bindCard();
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             绑定二代证
           </AuthButton> */}
@@ -173,9 +164,6 @@ function SecurityOfficerInfo() {
                   })
                 }
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
               >
                 注销
               </AuthButton>
@@ -186,9 +174,6 @@ function SecurityOfficerInfo() {
                   loading={_get(currentRecord, 'cid') === _get(record, 'cid') && registerLoading}
                   authId="coach/securityOfficerInfo:btn4"
                   className="operation-button"
-                  type="primary"
-                  ghost
-                  size="small"
                   onClick={async () => {
                     setCurrentRecord(record);
                     registerRun({ id: _get(record, 'cid'), type: '3' });
@@ -203,9 +188,6 @@ function SecurityOfficerInfo() {
                 authId="coach/assesserInfo:btn7"
                 loading={_get(currentRecord, 'cid') === _get(record, 'cid') && startTeachLoading}
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={() => {
                   // '02':'停教'
                   if (_get(record, 'employstatusAqy') === '02') {
@@ -226,9 +208,6 @@ function SecurityOfficerInfo() {
                 loading={_get(currentRecord, 'cid') === _get(record, 'cid') && stopTeachLoading}
                 authId="coach/securityOfficerInfo:btn8"
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={() => {
                   setCurrentRecord(record);
                   stopTeachRun(
@@ -245,9 +224,6 @@ function SecurityOfficerInfo() {
                 loading={_get(currentRecord, 'cid') === _get(record, 'cid') && resultLoading}
                 authId="coach/securityOfficerInfo:btn9"
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={async () => {
                   setCurrentRecord(record);
                   resultRun({ id: _get(record, 'cid', ''), type: 3 }); //人员类型1:教练员2：考核员3：安全员

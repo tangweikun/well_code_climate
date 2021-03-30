@@ -10,6 +10,9 @@ interface IState {
 }
 
 export default class ErrorBoundary extends React.Component<IProps, IState> {
+  public state: any;
+  public props: any;
+
   constructor(props: any) {
     super(props);
     this.state = { hasError: false };

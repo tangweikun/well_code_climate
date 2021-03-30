@@ -153,9 +153,6 @@ export default function CoachInfo() {
                 setCurrentId(_get(record, 'cid'));
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               详情
             </AuthButton>
@@ -169,9 +166,6 @@ export default function CoachInfo() {
                   setIsEdit(true);
                 }}
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
               >
                 编辑
               </AuthButton>
@@ -191,9 +185,6 @@ export default function CoachInfo() {
                     })
                   }
                   className="operation-button"
-                  type="primary"
-                  ghost
-                  size="small"
                 >
                   注销
                 </AuthButton>
@@ -205,9 +196,6 @@ export default function CoachInfo() {
                     loading={_get(currentRecord, 'cid') === _get(record, 'cid') && registerLoading}
                     authId="coach/coachInfo:btn4"
                     className="operation-button"
-                    type="primary"
-                    ghost
-                    size="small"
                     onClick={async () => {
                       setCurrentRecord(record);
                       registerRun({ id: _get(record, 'cid'), type: '1' });
@@ -226,9 +214,6 @@ export default function CoachInfo() {
                     bindCard();
                   }}
                   className="operation-button"
-                  type="primary"
-                  ghost
-                  size="small"
                 >
                   绑定二代证
                 </AuthButton>
@@ -239,9 +224,6 @@ export default function CoachInfo() {
                   authId="coach/coachInfo:btn7"
                   loading={_get(currentRecord, 'cid') === _get(record, 'cid') && startTeachLoading}
                   className="operation-button"
-                  type="primary"
-                  ghost
-                  size="small"
                   onClick={() => {
                     // '02':'停教'
                     if (_get(record, 'employstatus') === '02') {
@@ -266,9 +248,6 @@ export default function CoachInfo() {
                   loading={_get(currentRecord, 'cid') === _get(record, 'cid') && stopTeachLoading}
                   authId="coach/coachInfo:btn8"
                   className="operation-button"
-                  type="primary"
-                  ghost
-                  size="small"
                   onClick={() =>
                     _showConfirm({
                       title: '停教后，教练不能签到，确认停教吗',
@@ -291,9 +270,6 @@ export default function CoachInfo() {
                   loading={_get(currentRecord, 'cid') === _get(record, 'cid') && resultLoading}
                   authId="coach/coachInfo:btn9"
                   className="operation-button"
-                  type="primary"
-                  ghost
-                  size="small"
                   onClick={async () => {
                     setCurrentRecord(record);
                     resultRun({ id: _get(record, 'cid', ''), type: 1 });
@@ -306,9 +282,6 @@ export default function CoachInfo() {
                 <AuthButton
                   authId="coach/coachInfo:btn10"
                   className="operation-button"
-                  type="primary"
-                  ghost
-                  size="small"
                   onClick={() => {
                     setCurrentId(_get(record, 'cid'));
                     setNoVerifyVisible();
@@ -323,9 +296,6 @@ export default function CoachInfo() {
                     authId="coach/coachInfo:btn11"
                     loading={_get(currentRecord, 'cid') === _get(record, 'cid') && cancelLoading}
                     className="operation-button"
-                    type="primary"
-                    ghost
-                    size="small"
                     onClick={() => {
                       setCurrentId(_get(record, 'cid'));
                       cancelRun({ cid: currentId, idauthclosed: '0' });

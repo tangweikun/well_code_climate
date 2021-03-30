@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Table } from 'antd';
 import { _get } from 'utils';
-import { useDeleteConfirm, useRequest, useTablePro } from 'hooks';
+import { useConfirm, useRequest, useTablePro } from 'hooks';
 import { _getNvrSetupList, _getCarList, _deleteNvrItem } from './_api';
 import AddOrEdit from './AddOrEdit';
 import { AuthButton, Search } from 'components';
 
 export default function Demo() {
   const [optionCarData, setOptionCarData] = useState<any>([]); // 车牌号下拉数据
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
   const {
     tableProps,
     search,

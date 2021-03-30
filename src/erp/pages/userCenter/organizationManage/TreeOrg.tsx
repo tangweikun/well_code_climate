@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { _get } from 'utils';
 import { Tree, Input } from 'antd';
-import { useFetch, useDeleteConfirm } from 'hooks';
+import { useFetch, useConfirm } from 'hooks';
 
 import { _getOrganizationTree, _deleteOrganization } from './_api';
 import { Loading } from 'components';
@@ -20,7 +20,7 @@ export default function TreeOrg(props: any) {
     showOperationBar,
   } = props;
 
-  const [_showDeleteConfirm] = useDeleteConfirm();
+  const [_showDeleteConfirm] = useConfirm();
   const [expandedKeys, setExpandedKeys] = useState([]);
 
   const [autoExpandParent, setAutoExpandParent] = useState(false);

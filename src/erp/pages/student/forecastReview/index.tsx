@@ -87,9 +87,6 @@ function ForecastReview() {
               setCurrentId(_get(record, 'sid'));
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             详情
           </AuthButton>
@@ -101,9 +98,6 @@ function ForecastReview() {
                 setCurrentId(_get(record, 'sid'));
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               审核
             </AuthButton>

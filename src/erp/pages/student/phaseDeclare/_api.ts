@@ -22,13 +22,17 @@ export async function _getStudyDetail(query: { sid: string }) {
 // 提交申报
 // http://192.168.192.132:3000/project/193/interface/api/24685
 export async function _submit(query: {}) {
-  return await request(`${CORE_PREFIX}/v1/stuTrainTimeApply/submit`, 'POST', query);
+  return await request(`${CORE_PREFIX}/v1/stuTrainTimeApply/submit`, 'POST', query, {
+    withFeedback: true,
+  });
 }
 
 // 编辑申报
 // http://192.168.192.132:3000/project/193/interface/api/24685
 export async function _editSubmit(query: {}) {
-  return await request(`${CORE_PREFIX}/v1/stuTrainTimeApply/edit`, 'POST', query);
+  return await request(`${CORE_PREFIX}/v1/stuTrainTimeApply/edit`, 'POST', query, {
+    withFeedback: true,
+  });
 }
 
 // 获取审核结果

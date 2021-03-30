@@ -13,6 +13,7 @@ import { useVisible } from 'hooks';
 import ChangePassword from './ChangePassword';
 import ChangeSchool from './ChangeSchool';
 import { ErrorBoundary } from 'components';
+import { clear } from 'services';
 const { Header, Content } = Layout;
 
 type IProps = {
@@ -36,7 +37,7 @@ export default function BasicLayout(props: IProps) {
 
   const menu = (
     <Menu>
-      <Menu.Item onClick={_switchVisible}>修改密码</Menu.Item>
+      <Menu.Item onClick={clear}>修改密码</Menu.Item>
       <Menu.Item onClick={handleLogout}>退出</Menu.Item>
     </Menu>
   );

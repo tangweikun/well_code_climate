@@ -124,9 +124,6 @@ function AssesserInfo() {
               setCurrentId(_get(record, 'cid'));
             }}
             className="operation-button"
-            type="primary"
-            ghost
-            size="small"
           >
             详情
           </AuthButton>
@@ -152,9 +149,6 @@ function AssesserInfo() {
                 }
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               编辑
             </AuthButton>
@@ -180,9 +174,6 @@ function AssesserInfo() {
                   });
                 }}
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
               >
                 注销
               </AuthButton>
@@ -194,9 +185,6 @@ function AssesserInfo() {
                   loading={_get(currentRecord, 'cid') === _get(record, 'cid') && registerLoading}
                   authId="coach/assesserInfo:btn4"
                   className="operation-button"
-                  type="primary"
-                  ghost
-                  size="small"
                   onClick={() => {
                     setCurrentRecord(record);
                     registerRun({ id: _get(record, 'cid'), type: '2' });
@@ -212,9 +200,6 @@ function AssesserInfo() {
                 authId="coach/assesserInfo:btn7"
                 loading={_get(currentRecord, 'cid') === _get(record, 'cid') && startTeachLoading}
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={() => {
                   // '02':'停教'
                   if (_get(record, 'employstatusKhy') === '02') {
@@ -235,9 +220,6 @@ function AssesserInfo() {
                 loading={_get(currentRecord, 'cid') === _get(record, 'cid') && stopTeachLoading}
                 authId="coach/assesserInfo:btn8"
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={() => {
                   if (_get(record, 'isexaminer_exam') === '1' || _get(record, 'isexaminer_train') === '1') {
                     // isexaminer_exam:默认结业考核员(0-否 1-是) isexaminer_train:默认培训考核员(0-否 1-是)
@@ -269,9 +251,6 @@ function AssesserInfo() {
                 loading={_get(currentRecord, 'cid') === _get(record, 'cid') && resultLoading}
                 authId="coach/assesserInfo:btn10"
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={async () => {
                   setCurrentRecord(record);
                   resultRun({ id: _get(record, 'cid', ''), type: 2 }); ////人员类型1:教练员2：考核员3：安全员

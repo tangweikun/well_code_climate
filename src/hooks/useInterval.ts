@@ -1,10 +1,12 @@
 import { useRef, useEffect } from 'react';
 
-export function useInterval(callback: () => void, delay: number): void {
-  const savedCallback: any = useRef();
+type Fn = (...args: any) => void;
+
+export function useInterval(fn: Fn, delay: number): void {
+  const savedCallback = useRef<Fn>(fn);
 
   useEffect(() => {
-    savedCallback.current = callback;
+    savedCallback.current = fn;
   });
 
   useEffect(() => {

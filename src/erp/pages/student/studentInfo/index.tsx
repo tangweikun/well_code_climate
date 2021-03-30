@@ -290,9 +290,6 @@ function StudentInfo() {
                 setCurrentRecord(record);
               }}
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               详情
             </AuthButton>
@@ -305,9 +302,6 @@ function StudentInfo() {
                   setIsEdit(true);
                 }}
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
               >
                 编辑
               </AuthButton>
@@ -326,9 +320,6 @@ function StudentInfo() {
                       setTitle('生成合同');
                     }}
                     className="operation-button"
-                    type="primary"
-                    ghost
-                    size="small"
                   >
                     生成合同
                   </AuthButton>
@@ -345,9 +336,6 @@ function StudentInfo() {
                       setTitle('重新生成合同');
                     }}
                     className="operation-button"
-                    type="primary"
-                    ghost
-                    size="small"
                   >
                     重新生成合同
                   </AuthButton>
@@ -371,9 +359,6 @@ function StudentInfo() {
                       });
                     }}
                     className="operation-button"
-                    type="primary"
-                    ghost
-                    size="small"
                   >
                     开户
                   </AuthButton>
@@ -389,9 +374,6 @@ function StudentInfo() {
                       setReChargeVisible();
                     }}
                     className="operation-button"
-                    type="primary"
-                    ghost
-                    size="small"
                   >
                     充值
                   </AuthButton>
@@ -415,9 +397,6 @@ function StudentInfo() {
                     })
                   }
                   className="operation-button"
-                  type="primary"
-                  ghost
-                  size="small"
                 >
                   注销
                 </AuthButton>
@@ -433,9 +412,6 @@ function StudentInfo() {
                       recordRun({ id: _get(record, 'sid') });
                     }}
                     className="operation-button"
-                    type="primary"
-                    ghost
-                    size="small"
                   >
                     备案
                   </AuthButton>
@@ -449,9 +425,6 @@ function StudentInfo() {
                     bindCard();
                   }}
                   className="operation-button"
-                  type="primary"
-                  ghost
-                  size="small"
                 >
                   绑定二代证
                 </AuthButton>
@@ -473,9 +446,6 @@ function StudentInfo() {
                       });
                     }}
                     className="operation-button"
-                    type="primary"
-                    ghost
-                    size="small"
                   >
                     转C2车型
                   </AuthButton>
@@ -490,9 +460,6 @@ function StudentInfo() {
                 }
                 authId="student/studentInfo:btn16"
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={() => {
                   setCurrentRecord(record);
                   setNoVerifyVisible();
@@ -511,9 +478,6 @@ function StudentInfo() {
                 authId="student/studentInfo:btn17"
                 loading={_get(currentRecord, 'sid') === _get(record, 'sid') && cancelLoading}
                 className="operation-button"
-                type="primary"
-                ghost
-                size="small"
                 onClick={() => {
                   setCurrentRecord(record);
                   cancelRun({ sid: _get(currentRecord, 'sid'), idauthclosed: '0' });

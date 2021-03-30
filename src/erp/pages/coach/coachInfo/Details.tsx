@@ -5,6 +5,7 @@ import { _getDetails } from './_api';
 import { _get } from 'utils';
 import moment from 'moment';
 import { ItemCol, Title, PopoverImg } from 'components';
+import { CheckCircleOutlined } from '@ant-design/icons';
 
 export default function Details(props: any) {
   const { onCancel, currentId } = props;
@@ -141,29 +142,56 @@ export default function Details(props: any) {
             />
           </ItemCol>
           <ItemCol span={8} label="机动车驾驶证">
-            <PopoverImg
-              src={_get(data, 'coaCoachExtinfoEntity.driverLicenseImgUrl', '')}
-              imgStyle={{ width: 60, height: 60 }}
-            />
+            <div className="flex">
+              <div className="w60 mr20">
+                <PopoverImg
+                  src={_get(data, 'coaCoachExtinfoEntity.driverLicenseImgUrl', '')}
+                  imgStyle={{ width: 60, height: 60 }}
+                />
+              </div>
+              {_get(data, 'coaCoachExtinfoEntity.driverLicenseImageupFlag') === '1' && (
+                <div className="pd40">
+                  <CheckCircleOutlined className="green" />
+                </div>
+              )}
+            </div>
           </ItemCol>
           <ItemCol span={8} label="职业资格等级证">
-            <PopoverImg
-              src={_get(data, 'coaCoachExtinfoEntity.careerLicenseImgUrl', '')}
-              imgStyle={{ width: 60, height: 60 }}
-            />
+            <div className="flex">
+              <div className="w60 mr20">
+                <PopoverImg
+                  src={_get(data, 'coaCoachExtinfoEntity.careerLicenseImgUrl', '')}
+                  imgStyle={{ width: 60, height: 60 }}
+                />
+              </div>
+              {_get(data, 'coaCoachExtinfoEntity.careerLicenseImageupFlag') === '1' && (
+                <div className="pd40">
+                  <CheckCircleOutlined className="green" />
+                </div>
+              )}
+            </div>
           </ItemCol>
         </Row>
         <Row>
           <ItemCol span={16} label="其他资格证" labelCol={{ span: 5 }} wrapperCol={{ span: 19 }}>
-            {_get(data, 'coaCoachExtinfoEntity.other_license', []).map((x: any) => {
-              return (
-                <PopoverImg
-                  src={_get(x, 'url', '')}
-                  key={_get(x, 'id')}
-                  imgStyle={{ width: 60, height: 60, marginRight: 20 }}
-                />
-              );
-            })}
+            <div className="flex">
+              <div className="mr10">
+                {_get(data, 'coaCoachExtinfoEntity.other_license', []).map((x: any, index: number) => {
+                  return (
+                    <PopoverImg
+                      src={_get(x, 'url', '')}
+                      key={_get(x, 'id')}
+                      imgStyle={{ width: 60, height: 60, marginRight: 20 }}
+                    />
+                  );
+                })}
+              </div>
+              {_get(data, 'coaCoachExtinfoEntity.otherLicenseImageupFlag') === '1' && (
+                <div className="pd40">
+                  <CheckCircleOutlined className="green" />
+                </div>
+              )}
+            </div>
           </ItemCol>
         </Row>
       </Form>

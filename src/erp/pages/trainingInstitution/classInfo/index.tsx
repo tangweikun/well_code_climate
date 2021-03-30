@@ -128,9 +128,6 @@ export default function ClassInfo() {
                 setCurrentId(_get(record, 'packid'));
                 setIsEdit(true);
               }}
-              type="primary"
-              ghost
-              size="small"
             >
               编辑
             </AuthButton>
@@ -147,9 +144,6 @@ export default function ClassInfo() {
                 })
               }
               className="operation-button"
-              type="primary"
-              ghost
-              size="small"
             >
               注销
             </AuthButton>
@@ -161,9 +155,6 @@ export default function ClassInfo() {
                 onClick={() => {
                   recordRun({ id: _get(record, 'packid') });
                 }}
-                type="primary"
-                ghost
-                size="small"
               >
                 备案
               </AuthButton>
