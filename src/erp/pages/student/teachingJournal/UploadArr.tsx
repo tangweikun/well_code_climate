@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Modal, Table, Button, Select, message } from 'antd';
 import { useFetch, useTablePagination, useHash, useForceUpdate } from 'hooks';
-import { _getWaitUpload, _uploadLog } from './_api';
+import { _getWaitUpload, _uploadLog, _getTrainningTimeMinPatch, _getJsImageupPatch, _getClassrecord } from './_api';
 import { _get } from 'utils';
+import { AuthButton } from 'components';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+
+const { warning } = Modal;
 
 export default function UploadArr(props: any) {
   const { onCancel, signstarttime_start } = props;
@@ -11,6 +15,7 @@ export default function UploadArr(props: any) {
   const [checkstatus_jg, setCheckstatus_jg] = useState('0');
   const [ignore, forceUpdate] = useForceUpdate();
   const [uploadLoading, setUploadLoading] = useState(false);
+  const [offsetLoading, setOffsetLoading] = useState(false);
 
   const { isLoading, data } = useFetch({
     query: { page: pagination.current, limit: pagination.pageSize, signstarttime_start, checkstatus_jg },
@@ -164,6 +169,72 @@ export default function UploadArr(props: any) {
           onChange={(value: any) => setCheckstatus_jg(value)}
           style={{ width: 180, marginLeft: 20 }}
         />
+        <AuthButton
+          authId="student/teachingJournal:btn7"
+          className="ml20"
+          insertWhen={checkstatus_jg === '4'}
+          type="primary"
+          loading={offsetLoading}
+          onClick={async () => {
+            if (selectedRowKeys.length < 1) {
+              message.error('请选中需要上传的记录');
+              return;
+            }
+
+            setOffsetLoading(true);
+
+            let isAllSuccess = true; // 记录日志是否全部上传成功
+            let errData = []; // 错误数据
+            for (let i = 0; i < selectedRowKeys.length; i++) {
+              // 分钟学时
+              const res1 = await _getTrainningTimeMinPatch({
+                classid: selectedRowKeys[i],
+                year: signstarttime_start.slice(0, 4),
+              });
+              // 日志照片
+              const res2 = await _getJsImageupPatch({
+                classid: selectedRowKeys[i],
+                year: signstarttime_start.slice(0, 4),
+              });
+              // 日志上报
+              const res3 = await _getClassrecord({
+                classid: selectedRowKeys[i],
+                year: signstarttime_start.slice(0, 4),
+              });
+              if (_get(res1, 'code') !== 200 || _get(res2, 'code') !== 200 || _get(res3, 'code') !== 200) {
+                isAllSuccess = false;
+                errData.push(`
+                编号:${_get(data, `rows.${i}.recnum`)}
+                ${_get(res1, 'code') === 200 ? '' : `,分钟学时: ${_get(res1, 'message')}`}
+                ${_get(res2, 'code') === 200 ? '' : `,日志照片: ${_get(res2, 'message')}`}
+                ${_get(res3, 'code') === 200 ? '' : `,日志上报: ${_get(res3, 'message')}`}
+                `);
+              }
+            }
+
+            if (isAllSuccess) {
+              message.success('全部教学日志补传成功');
+            } else {
+              warning({
+                icon: <ExclamationCircleOutlined />,
+                title: '补传失败日志信息',
+                maskClosable: true,
+                content: (
+                  <>
+                    {errData.map((x) => (
+                      <div>{x}</div>
+                    ))}
+                  </>
+                ),
+              });
+            }
+
+            setOffsetLoading(false);
+            forceUpdate();
+          }}
+        >
+          批量补传
+        </AuthButton>
         <Table
           columns={columns}
           loading={isLoading}

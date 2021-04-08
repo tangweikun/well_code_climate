@@ -6,7 +6,7 @@ import { _get } from 'utils';
 import { Loading, PopoverImg } from 'components';
 import { RULES } from 'constants/rules';
 
-function ApplyDropped(props: any) {
+function Review(props: any) {
   const { onCancel, currentId, onOk } = props;
   const [form] = Form.useForm();
 
@@ -70,4 +70,4 @@ function ApplyDropped(props: any) {
   );
 }
 
-export default ApplyDropped;
+export default Review;

@@ -6,7 +6,7 @@ import { _getMinutes, _setMinState } from './_api';
 import Reason from './Reason';
 import { AuthButton, PopoverImg } from 'components';
 
-export default function AddOrEdit(props: any) {
+export default function Minutes(props: any) {
   const { currentRecord, isTrainingDetail = false } = props;
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
   const [pagination, setPagination, tablePagination] = useTablePagination({});

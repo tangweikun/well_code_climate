@@ -9,7 +9,7 @@ import { Search, AuthButton } from 'components';
 import OrderRecordTable from './OrderRecordTable';
 import CancelOrder from './CancelOrder';
 
-export default function OrderList(props: any) {
+export default function OrderRecord(props: any) {
   const { sid, isFromStudentInfo = false } = props;
   const [pagination, setPagination, tablePagination] = useTablePagination({});
   const [ignore, forceUpdate] = useForceUpdate();

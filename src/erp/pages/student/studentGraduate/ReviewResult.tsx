@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { Modal, Radio, Input, message } from 'antd';
 import { _endReview } from './_api';
 import { _get } from 'utils';
+import { useConfirm } from 'hooks';
 
 const { TextArea } = Input;
 
-export default function UploadArr(props: any) {
-  const { onCancel, onOk, selectedRowKeys } = props;
+export default function ReviewResult(props: any) {
+  const { onCancel, onOk, selectedRowKeys, selectedRow } = props;
   const [isapply, setIsapply] = useState('2') as any; // 2:通过
   const [respmsg, setRespmsg] = useState(''); //拒绝原因
   const [loading, setLoading] = useState(false);
+  const [_showConfirm] = useConfirm();
 
   return (
     <>
@@ -22,13 +24,15 @@ export default function UploadArr(props: any) {
         onOk={async () => {
           setLoading(true);
           let errCount = 0;
-          for (let i = 0; i < selectedRowKeys.length; i++) {
+          let failName = [];
+          for (let i = 0; i < selectedRow.length; i++) {
             const res = await _endReview({
-              saidList: [selectedRowKeys[i]],
+              saidList: [_get(selectedRow[i], 'said')],
               isapply,
               respmsg,
             });
             if (_get(res, 'code') !== 200) {
+              failName.push(_get(selectedRow[i], 'name'));
               errCount++;
             }
           }
@@ -36,7 +40,14 @@ export default function UploadArr(props: any) {
           if (errCount === 0) {
             message.success('全部上传成功');
           } else {
-            message.error(`有${errCount}条记录上传失败`);
+            _showConfirm({
+              title: '信息提示',
+              content: (
+                <div>
+                  学员: {[...failName]},{errCount}条记录上传失败,详情请查看核实说明。
+                </div>
+              ),
+            });
           }
           onOk();
         }}

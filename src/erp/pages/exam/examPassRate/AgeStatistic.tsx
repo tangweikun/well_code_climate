@@ -5,7 +5,7 @@ interface IProps {
   period: any;
 }
 
-export default function CarTypeStatistic(props: IProps) {
+export default function AgeStatistic(props: IProps) {
   const { period } = props;
   return <CommonStatistic type="age" period={period} />;
 }

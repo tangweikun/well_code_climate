@@ -5,7 +5,7 @@ import { useFetch, useTablePagination, useVisible, useForceUpdate, useHash } fro
 import { _getFinalAssess, _getReport } from '../../phasedReview/_api';
 import { previewPdf, _get } from 'utils';
 
-function AssesserInfo(props: any) {
+function PhasedReview(props: any) {
   const { sid } = props;
   const [visible, _switchVisible] = useVisible();
   const [pagination, setPagination, tablePagination] = useTablePagination({});
@@ -108,7 +108,7 @@ function AssesserInfo(props: any) {
 
   return (
     <div>
-      {visible && <Review onCancel={_switchVisible} onOk={_handleOk} title="初审信息" />}
+      {visible && <Review onCancel={_switchVisible} onOk={_handleOk} title="初审信息" sid={sid} />}
 
       <Button type="primary" onClick={() => _switchVisible()} style={{ marginBottom: 20 }}>
         去报审
@@ -126,4 +126,4 @@ function AssesserInfo(props: any) {
   );
 }
 
-export default AssesserInfo;
+export default PhasedReview;

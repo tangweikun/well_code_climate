@@ -9,7 +9,7 @@ import ClassInfo from '../ClassInfo';
 import CoachDetails from '../../../coach/coachInfo/Details';
 import { PRIMARY_COLOR } from 'constants/styleVariables';
 
-export default function Details(props: any) {
+export default function StudentDetails(props: any) {
   const { sid } = props;
   const [form] = Form.useForm();
   const [visible, _switchVisible] = useVisible();

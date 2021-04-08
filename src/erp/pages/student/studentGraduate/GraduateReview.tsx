@@ -6,9 +6,10 @@ import { _get } from 'utils';
 import ReviewResult from './ReviewResult';
 
 export default function GraduateReview(props: any) {
-  const { onCancel } = props;
+  const { onCancel, _forceUpdate } = props;
   const [pagination, setPagination, tablePagination] = useTablePagination({});
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
+  const [selectedRow, setSelectedRow] = useState<any>([]);
   const [isapply, setIsApply] = useState('');
   const [ignore, forceUpdate] = useForceUpdate();
   const [resultVisible, _switchRVisible] = useVisible();
@@ -24,8 +25,9 @@ export default function GraduateReview(props: any) {
   const reviewData = _get(data, 'rows', []).filter((x: any) => x.isapply !== '2');
 
   const rowSelection = {
-    onChange: (selectedRowKeys: any) => {
+    onChange: (selectedRowKeys: any, selectedRow: any) => {
       setSelectedRowKeys(selectedRowKeys);
+      setSelectedRow(selectedRow);
     },
     selectedRowKeys,
   };
@@ -48,7 +50,9 @@ export default function GraduateReview(props: any) {
         <ReviewResult
           onCancel={_switchRVisible}
           selectedRowKeys={selectedRowKeys}
+          selectedRow={selectedRow}
           onOk={() => {
+            _forceUpdate();
             _switchRVisible();
             forceUpdate();
             setPagination({ ...pagination, total: _get(data, 'total', 0) });

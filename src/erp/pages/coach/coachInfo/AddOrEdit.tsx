@@ -162,6 +162,7 @@ export default function AddOrEdit(props: any) {
         {
           <Button
             style={{ float: 'right' }}
+            loading={readCardLoading}
             onClick={async () => {
               setReadCardLoading(true);
               const update: any = await isForceUpdatePlugin();
@@ -170,8 +171,8 @@ export default function AddOrEdit(props: any) {
                 return setUpdatePluginVisible();
               }
               const readCardResult = await readIdCardData(form, 'coachname', (data: any, imgData: any) => {
-                setImageUrl(_get(imgData, 'url'));
-                setImgId(_get(imgData, 'id'));
+                _get(imgData, 'url') && setImageUrl(_get(imgData, 'url'));
+                _get(imgData, 'id') && setImgId(_get(imgData, 'id'));
                 setReadCardLoading(false);
               });
               if (isEmpty(readCardResult)) {

@@ -11,7 +11,7 @@ import OrderCourse from './OrderCourse';
 import { Search, AuthButton } from 'components';
 import { _get } from 'utils';
 
-export default function CoachInfo() {
+export default function RealTimeAppointment() {
   const [search, _handleSearch] = useSearch();
   const [pagination, setPagination, tablePagination] = useTablePagination({});
   const [ignore, forceUpdate] = useForceUpdate();

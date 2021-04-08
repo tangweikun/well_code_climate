@@ -2,7 +2,13 @@ import { Button } from 'antd';
 import React, { useContext } from 'react';
 import GlobalContext from 'globalContext';
 
-function AuthButton(props: any) {
+interface IProps {
+  authId: string;
+  insertWhen?: boolean;
+  [key: string]: any;
+}
+
+function AuthButton(props: IProps) {
   const { authId, insertWhen = true, ...restProps } = props;
 
   const defaultConfig = {};

@@ -11,34 +11,10 @@ const service = axios.create({
   headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
 });
 
-// abort duplicate request
-const pending = {} as any;
-const CancelToken = axios.CancelToken;
-const removePending = (config: any, f?: () => void) => {
-  // make sure the url is same for both request and response
-  const url = config.url.replace(config.baseURL, '/');
-  // stringify whole RESTful request with URL params
-  const flagUrl = url + '&' + config.method + '&' + JSON.stringify(config.params);
-  if (flagUrl in pending) {
-    if (f) {
-      f(); // abort the request
-    } else {
-      delete pending[flagUrl];
-    }
-  } else {
-    if (f) {
-      pending[flagUrl] = f; // store the cancel function
-    }
-  }
-};
-
 // Add a request interceptor
 service.interceptors.request.use(
   function (config) {
     config.withCredentials = true;
-    config.cancelToken = new CancelToken((c) => {
-      removePending(config, c);
-    });
     // Do something before request is sent
     return config;
   },
@@ -59,8 +35,6 @@ service.interceptors.response.use(
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
 
-    removePending(response.config);
-
     if (status === 401) {
       message.error('登录信息过期，请重新登录');
       Auth.del();
@@ -79,8 +53,6 @@ service.interceptors.response.use(
     return response.data;
   },
   function (error) {
-    removePending(error.config);
-
     message.error(_get(error, 'response.data.message'));
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
@@ -88,23 +60,9 @@ service.interceptors.response.use(
       handleLogout();
     }
 
-    if (!axios.isCancel(error)) {
-      return Promise.reject(error);
-    } else {
-      // return empty object for aborted request
-      return Promise.resolve({});
-    }
+    return Promise.reject(error);
   },
 );
-
-export const clear = () => {
-  Object.keys(pending).map((e) => {
-    if (pending[e]) {
-      pending[e]();
-      delete pending[e];
-    }
-  });
-};
 
 export function request(path: string, method: any = 'GET', query: object = {}, payload?: object) {
   const withFeedback = _get(payload, 'withFeedback', false); // 是否对接口结果进行反馈
@@ -138,11 +96,6 @@ export function request(path: string, method: any = 'GET', query: object = {}, p
       url: path,
       method: method.toLowerCase(),
       params: trimStr(query),
-      // cancelToken: source.token,
-      // cancelToken: new CancelToken(function (cancel) {
-      //   console.log(query);
-      //   // cancel();
-      // }),
       headers,
       responseType,
     });

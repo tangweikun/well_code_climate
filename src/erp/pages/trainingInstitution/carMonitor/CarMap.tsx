@@ -1,16 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { _get } from 'utils';
-import { Map, InfoWindow, APILoader, Label } from '@uiw/react-baidu-map';
+import { Map, InfoWindow, APILoader, Label, Control } from '@uiw/react-baidu-map';
 import { PRIMARY_COLOR } from 'constants/styleVariables';
+import { findDOMNode } from 'react-dom';
+import screenfull from 'screenfull';
 
 export default function CarMap(props: any) {
-  const { mapData, carHash, mapKey, currentRecord } = props;
+  const { mapData, carHash, mapKey, currentRecord, isMonitor = false } = props;
   const [currentMark, setCurrentMark] = useState({}) as any;
   const [isOpen, setIsOpen] = useState(false);
   const [isAutoLocalCity, setIsAutoLocalCity] = useState(mapData.length === 0);
   const [centerPoint, setCenterPoint] = useState() as any;
+  const mapRef = useRef(null);
+  const [screenText, setScreenText] = useState('全屏');
 
+  let screen = screenfull as any;
+
+  useEffect(() => {
+    if (screen.isFullscreen) {
+      return setScreenText('退出全屏');
+    }
+    setScreenText('全屏');
+  }, [screen.isFullscreen]);
   useEffect(() => {
     if (_get(currentRecord, 'lon', '') && _get(currentRecord, 'lat', '')) {
       setCenterPoint({
@@ -58,8 +70,8 @@ export default function CarMap(props: any) {
   const titleStyle = 'width:60px;display:inline-block;text-align:right';
 
   return (
-    <div className="mb20 full-width " style={{ height: 500 }}>
-      <APILoader akay="GTrnXa5hwXGwgQnTBG28SHBubErMKm3f">
+    <div className="mb20 full-width " style={isMonitor ? { height: 680 } : { height: 500 }}>
+      <APILoader akay="GTrnXa5hwXGwgQnTBG28SHBubErMKm3f" ref={mapRef}>
         <>
           <CarMap
             zoom={13}
@@ -81,32 +93,61 @@ export default function CarMap(props: any) {
                         setIsOpen(true);
                       }}
                       key={index}
-                      content={carHash[_get(item, 'carid', '')]}
+                      content={isMonitor ? _get(item, 'CarLicence', '') : carHash[_get(item, 'carid', '')]}
                       style={{ color: PRIMARY_COLOR, fontSize: '16px', fontWeight: 'bold' }}
                       position={{ lng: _get(item, 'lon', ''), lat: _get(item, 'lat', '') }}
                     />
                   );
                 })}
-            <InfoWindow
-              isOpen={isOpen}
-              onClose={() => setIsOpen(false)}
-              position={{ lng: _get(currentMark, 'lon', ''), lat: _get(currentMark, 'lat', '') }}
-              content={`
+            {!isMonitor && (
+              <InfoWindow
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                position={{ lng: _get(currentMark, 'lon', ''), lat: _get(currentMark, 'lat', '') }}
+                content={`
                     <div><label style="${titleStyle}">培训科目：</label>${_get(currentMark, 'examname', '')}<div>
                     <div><label style="${titleStyle}">教练员：</label>${_get(currentMark, 'coaname', '')}<div>
                     <div><label style="${titleStyle}">学员：</label>${_get(currentMark, 'stuname', '')}<div>
                     <div><label style="${titleStyle}">经纬度：</label> ${_get(currentMark, 'lon', '')},${_get(
-                currentMark,
-                'lat',
-                '',
-              )} <div>
+                  currentMark,
+                  'lat',
+                  '',
+                )} <div>
                     <div><label style="${titleStyle}">速度：</label>${_get(currentMark, 'gps_speed', '')}<div>
                     <div><label style="${titleStyle}">时间：</label>${_get(currentMark, 'gpstime', '')}<div>
                     <div><label style="${titleStyle}">地址：</label>${_get(currentMark, 'address', '')}<div>
                 `}
-              width={320}
-              title={`<div class='bold'>${carHash[_get(currentMark, 'carid', '')]}<div>`}
-            />
+                width={320}
+                title={`<div class='bold'>${carHash[_get(currentMark, 'carid', '')]}<div>`}
+              />
+            )}
+            {isMonitor && (
+              <Control anchor={BMAP_ANCHOR_BOTTOM_RIGHT}>
+                <div
+                  style={{
+                    background: 'gray',
+                    padding: '10px',
+                    fontSize: 12,
+                    display: 'inline-block',
+                    color: '#ffffff',
+                  }}
+                  onClick={() => {
+                    const instanceMap = mapRef.current;
+
+                    if (instanceMap) {
+                      screen.toggle(findDOMNode(instanceMap));
+                      if (!screen.isFullscreen) {
+                        setScreenText('退出全屏');
+                      } else {
+                        setScreenText('全屏');
+                      }
+                    }
+                  }}
+                >
+                  {screenText}
+                </div>
+              </Control>
+            )}
           </CarMap>
         </>
       </APILoader>

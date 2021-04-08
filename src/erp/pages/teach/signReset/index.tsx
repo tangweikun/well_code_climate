@@ -5,10 +5,10 @@ import { _getTraStuSignList } from './_api';
 import { Table } from 'antd';
 import { AuthButton, Search } from 'components';
 import { _get } from 'utils';
-import Reset from './Reset';
+import AddOrEdit from './addOrEdit';
 import ChangeReset from './ChangeReset';
 
-function StudentGraduate() {
+function SignReset() {
   const [search, _handleSearch] = useSearch();
   const [pagination, setPagination, tablePagination] = useTablePagination({});
   const [ignore, forceUpdate] = useForceUpdate();
@@ -51,7 +51,7 @@ function StudentGraduate() {
   return (
     <>
       {visible && (
-        <Reset
+        <AddOrEdit
           onCancel={_switchVisible}
           onOk={() => {
             _switchVisible();
@@ -138,4 +138,4 @@ function StudentGraduate() {
   );
 }
 
-export default StudentGraduate;
+export default SignReset;

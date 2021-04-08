@@ -9,7 +9,7 @@ interface IProps {
   onOk(): void;
 }
 
-export default function AddOrEdit(props: IProps) {
+export default function SetAssessInfo(props: IProps) {
   const { onCancel, onOk } = props;
   const [form] = Form.useForm();
   const [trainsOptionData, setTrainsOptionData] = useState([] as any[]); // 默认培训考核员

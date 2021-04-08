@@ -7,8 +7,8 @@ import { Search, IModal } from 'components';
 import { insertWhen, _get } from 'utils';
 
 function Review(props: any) {
-  const { onCancel, title, onOk } = props;
-  const [search, _handleSearch] = useSearch();
+  const { onCancel, title, onOk, sid } = props;
+  const [search, _handleSearch] = useSearch({ sid });
   const [pagination, setPagination, tablePagination] = useTablePagination({});
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
   const [ignore, forceUpdate] = useForceUpdate();

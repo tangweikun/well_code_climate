@@ -2,6 +2,6 @@
 import React from 'react';
 import Appointment from '../appointment';
 
-export default function SimulationAppointment() {
+export default function TheoryAppointment() {
   return <Appointment traincode="2" />;
 }

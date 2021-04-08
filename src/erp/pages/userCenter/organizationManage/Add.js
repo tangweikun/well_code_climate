@@ -5,7 +5,7 @@ import { _addOrganization, _editOrganization } from './_api';
 import { RULES } from 'constants/rules';
 import { useRequest } from 'hooks';
 
-export default function AddOrEditOrg(props) {
+export default function Add(props) {
   const [form] = Form.useForm();
   const { title, onOk, onCancel, currentRecord, isEdit } = props;
 

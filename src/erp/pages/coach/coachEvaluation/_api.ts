@@ -44,3 +44,9 @@ export async function _addEvaluation(
 export async function _getDetails(query: { id: string }) {
   return await request(`${NOT_CORE_PREFIX}/v1/schEvaluation/info`, 'GET', query);
 }
+
+//查询教练员列表-下拉框
+//http://192.168.192.132:3000/project/183/interface/api/18357
+export async function _getFinalAssess(query: { schoolId?: number; coachname?: string }) {
+  return await request(`${NOT_CORE_PREFIX}/v1/coa/pageListCoach`, 'GET', query);
+}

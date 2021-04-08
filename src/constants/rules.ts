@@ -16,7 +16,7 @@ const LEN150_ENTER = { pattern: /^(.|[\n\s*\r]){1,150}$/, message: '输入内容
 const LEN200 = { pattern: /^(.|[\n\s*\r]){1,200}$/, message: '输入内容需在200字符以内' };
 const POSITIVE_INT = { pattern: /^[0-9]+$/, message: '输入正整数' };
 const LEN16_NUMBER_LETTER_ = {
-  pattern: /^[\d|a-z|A-Z|\@|\-|\_]{1,16}$/,
+  pattern: /^[\d|a-z|A-Z|@|\-|_]{1,16}$/,
   message: '由字母，数字， _， - 组成，有效长度为1-16个字符',
 };
 const LEN32_NUMBER_LETTER = {
@@ -65,7 +65,7 @@ const NUMBER_65535 = {
 const NUMBER_100000 = (rule: any, value: any, callback: any) => {
   var x = String(value).indexOf('.') + 1; //得到小数点的位置
   var y = String(value).length - x; //小数点的位数
-  if (value && !(Number(value) >= 0 && Number(value) <= 100000 && (x == 0 || (x > 0 && y <= 2)))) {
+  if (value && !(Number(value) >= 0 && Number(value) <= 100000 && (Number(x) === 0 || (x > 0 && y <= 2)))) {
     callback('输入内容需为0-100000的数字,最多2位小数点');
   }
   callback();
@@ -201,6 +201,26 @@ export const RULES = {
   },
   NVR_PORT: NUMBER_65535, //92:机器人教练端口号校验规则规则（0-65535的数字）
   RULE_PRICE: NUMBER_9999, // 33：教练员总数：大于0整数，0-999
+  // 学时申报学时信息
+  STUDENT_INFO: {
+    pattern: /^\d{1,6}$/,
+    message: '输入内容需在6个数字字符以内',
+  },
+  // 注册地址
+  REGISTERED_ADDRESS: {
+    pattern: /^.{1,255}$/,
+    message: '输入内容需在255个字符以内',
+  },
+  // 报名驾校
+  TRAIN_SCHOOL: {
+    pattern: /^.{1,120}$/,
+    message: '输入内容需在120个字符以内',
+  },
+  // 原档案号
+  FILE_NUMBER: {
+    pattern: /^.{1,20}$/,
+    message: '输入内容需在20个字符以内',
+  },
 };
 
 // 1、学员姓名：64个字符以内（考虑到可能存在英文名称）

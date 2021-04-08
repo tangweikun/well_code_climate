@@ -1,5 +1,5 @@
 import { request } from 'services';
-import { NOT_CORE_PREFIX, CORE_PREFIX } from 'constants/env';
+import { NOT_CORE_PREFIX, CORE_PREFIX, DATA_EXCHANGE_PREFIX } from 'constants/env';
 
 // 电子教学日志分页列表
 // http://192.168.192.132:3000/project/183/interface/api/17265
@@ -125,4 +125,32 @@ export async function _getWaitUpload(query: { signstarttime_start?: string }) {
 //查询审核结果
 export async function _getResult(query: { is?: string; sid?: string; subject?: string }) {
   return await request(`${CORE_PREFIX}/v1/stuClassrecord/query/result`, 'GET', query);
+}
+
+// 分钟学时上传(省内至正补传)
+// http://192.168.192.132:3000/project/203/interface/api/25679
+export async function _getTrainningTimeMinPatch(query: {
+  classid: string; // 电子教学日志ID
+  uploadType?: string; // 上报类型 1：自动上报 2：应用中心要求上报 后端说不用传
+  year: string; // 电子教学日志所属年份
+}) {
+  return await request(`${DATA_EXCHANGE_PREFIX}/v1/jg/trainningTimeMinPatch`, 'POST', query);
+}
+
+// 培训过程拍摄图片信息接口(省内至正补传)
+// http://192.168.192.132:3000/project/203/interface/api/25595
+export async function _getJsImageupPatch(query: {
+  classid: string; // 电子教学日志ID
+  year: string; // 电子教学日志所属年份
+}) {
+  return await request(`${DATA_EXCHANGE_PREFIX}/v1/jg/jsImageupPatch`, 'POST', query);
+}
+
+// 电子教学日志上报接口
+// http://192.168.192.132:3000/project/203/interface/api/14899
+export async function _getClassrecord(query: {
+  classid: string; // 电子教学日志ID
+  year: string; // 电子教学日志所属年份
+}) {
+  return await request(`${DATA_EXCHANGE_PREFIX}/v1/jg/classrecord`, 'POST', query);
 }

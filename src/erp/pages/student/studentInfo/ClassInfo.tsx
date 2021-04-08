@@ -5,7 +5,7 @@ import { _getClassDetail } from './_api';
 import { _get } from 'utils';
 import { ItemCol } from 'components';
 
-export default function Details(props: any) {
+export default function ClassInfo(props: any) {
   const { onCancel, sid } = props;
   const payModeHash = useHash('pay_mode_type');
   const subjectTypeHash = useHash('subject_type');

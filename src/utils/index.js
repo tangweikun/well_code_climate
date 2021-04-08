@@ -19,3 +19,5 @@ export * from './minuteDiff';
 export * from './errorCaptured';
 export * from './insertWhen';
 export * from './_get';
+export * from './printUtils';
+export * from './decimalSum';

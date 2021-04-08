@@ -24,7 +24,7 @@ export async function _getStudentInfo(query: { page: number; limit: number; stat
 
 // 新增退学学员
 // http://192.168.192.132:3000/project/193/interface/api/17461
-export async function _addStudentRetire(query: { sid: string; reason: string }) {
+export async function _addStudentRetire(query: { sid: string; reason?: string; applymemocode: string }) {
   return await request(`${CORE_PREFIX}/v1/stuStageApply/saveStudentRetire`, 'POST', query, {
     withFeedback: true,
     customHeader: { menuId: 'studentDropped', elementId: 'student/studentDropped:btn1' },

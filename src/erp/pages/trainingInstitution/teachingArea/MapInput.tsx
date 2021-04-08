@@ -12,7 +12,7 @@ type TProps = {
   center?: TLocation;
 };
 
-export default function Foo(props: any) {
+export default function MapInput(props: any) {
   const { callback, value, setValue } = props;
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Alert } from 'antd';
 
-export default function AddOrEdit(props: any) {
+export default function ChoosePerson(props: any) {
   const { onCancel, studentList, setStudentData } = props;
 
   return (

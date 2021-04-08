@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Drawer, Table, Row, Input, Select, Form, Button, Upload, message } from 'antd';
+import { Drawer, Table, Row, Input, Select, Form, Button, message } from 'antd';
 import { Search, Title, ItemCol, Loading } from 'components';
-import { _getStudentTableList, _getStudyDetail, _submit, _editSubmit } from './_api';
+import { _getStudentTableList, _getStudyDetail, _submit, _editSubmit, _getOtherInfoGroupid } from './_api';
 import { _getStudentList } from 'api';
 import { useFetch, useHash, useOptions, useTablePro } from 'hooks';
-import { UploadOutlined } from '@ant-design/icons';
-import { Auth, _get } from 'utils';
-import { USER_CENTER_URL } from 'constants/env';
+import { _get } from 'utils';
 import { isEmpty } from 'lodash';
+import ImportFile from './ImportFile';
+import { RULES } from 'constants/rules';
 
 export default function AddOrEdit(props: any) {
   const { onCancel, isEdit, currentRecord, onOk } = props;
@@ -22,12 +22,22 @@ export default function AddOrEdit(props: any) {
       isotherprovince: '1', //外省转入
     },
   });
+
   const [wellFileId, setWellFileId] = useState(''); // 交警技能证明id
+  const [latestTrainFile, setLatestTrainFile] = useState(''); // 最近一次培训记录
+  const [subjectOneExamDateFile, setSubjectOneExamDateFile] = useState(''); // 第一部分约考凭证
+  const [subjectOneExamResultFile, setSubjectOneExamResultFile] = useState(''); // 第一部分考试成绩
+  const [subjectTwoExamDateFile, setSubjectTwoExamDateFile] = useState(''); // 第二部分约考凭证
+  const [subjectTwoExamResultFile, setSubjectTwoExamResultFile] = useState(''); // 第二部分考试成绩
+  const [subjectThreeExamDateFile, setSubjectThreeExamDateFile] = useState(''); //第三部分约考凭证
+  const [subjectThreeExamResultFile, setSubjectThreeExamResultFile] = useState(''); // 第三部分考试成绩
+
   const [sid, setSid] = useState(isEdit ? _get(currentRecord, 'sid', '') : '');
 
   const cardTypeHash = useHash('card_type'); // 证件类型
   const stuDrivetrainStatusHash = useHash('stu_drivetrain_status'); // 学员状态
   const examResultTypeOptions = useOptions('exam_result_type'); // 考核结果
+  const trainFinishFlagOptions = useOptions('train_finish_flag'); // 培训情况
 
   // 获取学时详情
   const { data: detailsData = {} } = useFetch({
@@ -36,6 +46,11 @@ export default function AddOrEdit(props: any) {
       sid,
     },
     requiredFields: ['sid'],
+  });
+
+  // 获取其他材料显示内容组ID
+  const { data: getOtherInfoGroupid } = useFetch({
+    request: _getOtherInfoGroupid,
   });
 
   // form的展示，新增和编辑且获取到detailsData数据的时候正常展示 编辑的时候获取到detailsData之前loading展示
@@ -75,7 +90,36 @@ export default function AddOrEdit(props: any) {
             type="primary"
             onClick={() => {
               form.validateFields().then(async (values: any) => {
-                const query = { ...values, sid, wellFileId };
+                // getOtherInfoGroupid:后台配置三组内容，根据项目实际情况配置显示某组内容：
+                ///getOtherInfoGroupid:1、无内容
+                //getOtherInfoGroupid:2、交警技能证明（温州应用）
+                //getOtherInfoGroupid:3、原注册地市、原培训学校、原档案号、已完成培训科目勾选、已考科目勾选、最近一次培训记录图片、各科目约考凭证图片、考试成绩图片（海口应用）
+                if (!isEdit && getOtherInfoGroupid === '2' && !wellFileId) {
+                  message.error('请上传交警证明');
+                  return;
+                }
+                if (!isEdit && getOtherInfoGroupid === '3' && !latestTrainFile) {
+                  message.error('请上传最近一次培训记录');
+                  return;
+                }
+                if (!sid) {
+                  message.error('请选择学员');
+                  return;
+                }
+                const query = {
+                  ...values,
+                  subjectTwoMileage: _get(values, 'subjectTwoMileage', 0),
+                  subjectThreeMileage: _get(values, 'subjectThreeMileage', 0),
+                  sid,
+                  wellFileId,
+                  latestTrainFile,
+                  subjectOneExamDateFile,
+                  subjectOneExamResultFile,
+                  subjectTwoExamDateFile,
+                  subjectTwoExamResultFile,
+                  subjectThreeExamDateFile,
+                  subjectThreeExamResultFile,
+                };
                 const res = isEdit ? await _editSubmit(query) : await _submit(query);
                 if (_get(res, 'code') === 200) {
                   onOk();
@@ -84,7 +128,7 @@ export default function AddOrEdit(props: any) {
             }}
             disabled={false}
           >
-            确定
+            提交申报
           </Button>
         </>
       }
@@ -132,47 +176,93 @@ export default function AddOrEdit(props: any) {
               </ItemCol>
             </Row>
           )}
-          <Form form={form} {...layout} autoComplete="off" initialValues={{ ...detailsData }}>
+          <Form
+            form={form}
+            {...layout}
+            autoComplete="off"
+            initialValues={{
+              ...detailsData,
+            }}
+          >
             <Title>学时信息</Title>
             <Row>
-              <ItemCol span={8} label="第一部分课堂理论" name="subjectOneClassroomTime" rules={[{ required: true }]}>
+              <ItemCol
+                span={8}
+                label="第一部分课堂理论"
+                name="subjectOneClassroomTime"
+                rules={[{ required: true }, RULES.STUDENT_INFO]}
+              >
                 <Input className="w200" addonAfter={'学时'} />
               </ItemCol>
-              <ItemCol span={8} label="第一部分网络理论" name="subjectOneNetworkTime" rules={[{ required: true }]}>
+              <ItemCol
+                span={8}
+                label="第一部分网络理论"
+                name="subjectOneNetworkTime"
+                rules={[{ required: true }, RULES.STUDENT_INFO]}
+              >
                 <Input className="w200" addonAfter={'学时'} />
               </ItemCol>
             </Row>
             <Row>
-              <ItemCol span={8} label="第二部分实操" name="subjectTwoVehicleTime" rules={[{ required: true }]}>
+              <ItemCol
+                span={8}
+                label="第二部分实操"
+                name="subjectTwoVehicleTime"
+                rules={[{ required: true }, RULES.STUDENT_INFO]}
+              >
                 <Input className="w200" addonAfter={'学时'} />
               </ItemCol>
-              <ItemCol span={8} label="第二部分模拟" name="subjectTwoSimulatorTime" rules={[{ required: true }]}>
+              <ItemCol
+                span={8}
+                label="第二部分模拟"
+                name="subjectTwoSimulatorTime"
+                rules={[{ required: true }, RULES.STUDENT_INFO]}
+              >
                 <Input className="w200" addonAfter={'学时'} />
               </ItemCol>
-              <ItemCol span={8} label="第二部分里程" name="subjectTwoMileage">
+              <ItemCol span={8} label="第二部分里程" name="subjectTwoMileage" rules={[RULES.STUDENT_INFO]}>
                 <Input className="w200" addonAfter={'公里'} />
               </ItemCol>
             </Row>
             <Row>
-              <ItemCol span={8} label="第三部分实操" name="subjectThreeVehicleTime" rules={[{ required: true }]}>
+              <ItemCol
+                span={8}
+                label="第三部分实操"
+                name="subjectThreeVehicleTime"
+                rules={[{ required: true }, RULES.STUDENT_INFO]}
+              >
                 <Input className="w200" addonAfter={'学时'} />
               </ItemCol>
-              <ItemCol span={8} label="第三部分模拟" name="subjectThreeSimulatorTime" rules={[{ required: true }]}>
+              <ItemCol
+                span={8}
+                label="第三部分模拟"
+                name="subjectThreeSimulatorTime"
+                rules={[{ required: true }, RULES.STUDENT_INFO]}
+              >
                 <Input className="w200" addonAfter={'学时'} />
               </ItemCol>
-              <ItemCol span={8} label="第三部分里程" name="subjectThreeMileage">
+              <ItemCol span={8} label="第三部分里程" name="subjectThreeMileage" rules={[RULES.STUDENT_INFO]}>
                 <Input className="w200" addonAfter={'公里'} />
               </ItemCol>
             </Row>
             <Row>
-              <ItemCol span={8} label="第四部分课堂理论" name="subjectFourClassroomTime" rules={[{ required: true }]}>
+              <ItemCol
+                span={8}
+                label="第四部分课堂理论"
+                name="subjectFourClassroomTime"
+                rules={[{ required: true }, RULES.STUDENT_INFO]}
+              >
                 <Input className="w200" addonAfter={'学时'} />
               </ItemCol>
-              <ItemCol span={8} label="第四部分网络理论" name="subjectFourNetworkTime" rules={[{ required: true }]}>
+              <ItemCol
+                span={8}
+                label="第四部分网络理论"
+                name="subjectFourNetworkTime"
+                rules={[{ required: true }, RULES.STUDENT_INFO]}
+              >
                 <Input className="w200" addonAfter={'学时'} />
               </ItemCol>
             </Row>
-
             <Title>考核信息</Title>
             <Row>
               <ItemCol span={8} label="第一部分考核结果" name="subjectOneExamResult" rules={[{ required: true }]}>
@@ -188,40 +278,127 @@ export default function AddOrEdit(props: any) {
                 <Select options={examResultTypeOptions} />
               </ItemCol>
             </Row>
-
-            <Title>其他材料</Title>
-            <ItemCol span={8} label="交警技能证明">
-              <Upload
-                name={'file'}
-                action={USER_CENTER_URL + '/api/video-face/tmpFile/upload'}
-                headers={{
-                  token: String(Auth.get('token')),
-                  Authorization: 'bearer' + Auth.get('token'),
-                  username: String(Auth.get('username')),
-                  schoolId: String(Auth.get('schoolId')),
-                }}
-                maxCount={1}
-                onChange={(info: any) => {
-                  if (info.file.status !== 'uploading') {
-                  }
-                  if (info.file.status === 'done') {
-                    message.success(`${info.file.name} 文件上传成功`);
-                    setWellFileId(_get(info, 'file.response.data.id', ''));
-                  } else if (info.file.status === 'error') {
-                    message.error(`${info.file.name} 文件上传失败`);
-                  }
-                }}
-              >
-                {isEdit ? (
-                  <>
-                    <Button icon={<UploadOutlined />}>重新上传</Button>
-                    {!wellFileId && <div>{_get(detailsData, 'wellFileId', '')}</div>}
-                  </>
-                ) : (
-                  <Button icon={<UploadOutlined />}>上传文件</Button>
-                )}
-              </Upload>
-            </ItemCol>
+            {(getOtherInfoGroupid === '2' || getOtherInfoGroupid === '3') && <Title>其他材料</Title>}
+            {getOtherInfoGroupid === '2' && (
+              <ItemCol span={8} label="交警技能证明" required>
+                <ImportFile
+                  hasFileId={_get(detailsData, 'wellFileId', '')}
+                  fileId={wellFileId}
+                  setFileId={setWellFileId}
+                />
+              </ItemCol>
+            )}
+            {getOtherInfoGroupid === '3' && (
+              <>
+                <Row>
+                  <ItemCol
+                    span={8}
+                    label="第一部分培训情况"
+                    name="subjectOneTrainFinishFlag"
+                    rules={[{ required: true }]}
+                  >
+                    <Select options={trainFinishFlagOptions} />
+                  </ItemCol>
+                  <ItemCol
+                    span={8}
+                    label="第二部分培训情况"
+                    name="subjectTwoTrainFinishFlag"
+                    rules={[{ required: true }]}
+                  >
+                    <Select options={trainFinishFlagOptions} />
+                  </ItemCol>
+                  <ItemCol
+                    span={8}
+                    label="第三部分培训情况"
+                    name="subjectThreeTrainFinishFlag"
+                    rules={[{ required: true }]}
+                  >
+                    <Select options={trainFinishFlagOptions} />
+                  </ItemCol>
+                </Row>
+                <Row>
+                  <ItemCol
+                    span={8}
+                    label="原注册地市"
+                    name="jumpFromArea"
+                    rules={[{ required: true }, RULES.REGISTERED_ADDRESS]}
+                  >
+                    <Input />
+                  </ItemCol>
+                  <ItemCol
+                    span={8}
+                    label="原培训驾校"
+                    name="extSchoolid"
+                    rules={[{ required: true }, RULES.TRAIN_SCHOOL]}
+                  >
+                    <Input />
+                  </ItemCol>
+                  <ItemCol
+                    span={8}
+                    label="原档案号"
+                    name="extFileNumber"
+                    rules={[{ required: true }, RULES.FILE_NUMBER]}
+                  >
+                    <Input />
+                  </ItemCol>
+                </Row>
+                <Row>
+                  <ItemCol span={8} label="最近一次培训记录" name="latestTrainFile" required>
+                    <ImportFile
+                      hasFileId={_get(detailsData, 'latestTrainFile', '')}
+                      fileId={latestTrainFile}
+                      setFileId={setLatestTrainFile}
+                    />
+                  </ItemCol>
+                  <ItemCol span={8} label="第一部分约考凭证" name="subjectOneExamDateFile">
+                    <ImportFile
+                      hasFileId={_get(detailsData, 'subjectOneExamDateFile', '')}
+                      fileId={subjectOneExamDateFile}
+                      setFileId={setSubjectOneExamDateFile}
+                    />
+                  </ItemCol>
+                  <ItemCol span={8} label="第一部分考试成绩" name="subjectOneExamResultFile">
+                    <ImportFile
+                      hasFileId={_get(detailsData, 'subjectOneExamResultFile', '')}
+                      fileId={subjectOneExamResultFile}
+                      setFileId={setSubjectOneExamResultFile}
+                    />
+                  </ItemCol>
+                </Row>
+                <Row>
+                  <ItemCol span={8} label="第二部分约考凭证" name="subjectTwoExamDateFile">
+                    <ImportFile
+                      hasFileId={_get(detailsData, 'subjectTwoExamDateFile', '')}
+                      fileId={subjectTwoExamDateFile}
+                      setFileId={setSubjectTwoExamDateFile}
+                    />
+                  </ItemCol>
+                  <ItemCol span={8} label="第二部分考试成绩" name="subjectTwoExamResultFile">
+                    <ImportFile
+                      hasFileId={_get(detailsData, 'subjectTwoExamResultFile', '')}
+                      fileId={subjectTwoExamResultFile}
+                      setFileId={setSubjectTwoExamResultFile}
+                    />
+                  </ItemCol>
+                  <ItemCol span={8} label="第三部分约考凭证" name="subjectThreeExamDateFile">
+                    <ImportFile
+                      hasFileId={_get(detailsData, 'subjectThreeExamDateFile', '')}
+                      fileId={subjectThreeExamDateFile}
+                      setFileId={setSubjectThreeExamDateFile}
+                    />
+                  </ItemCol>
+                </Row>
+                <Row>
+                  <ItemCol span={8} label="第三部分考试成绩" name="subjectThreeExamResultFile">
+                    <ImportFile
+                      hasFileId={_get(detailsData, 'subjectThreeExamResultFile', '')}
+                      fileId={subjectThreeExamResultFile}
+                      setFileId={setSubjectThreeExamResultFile}
+                    />
+                  </ItemCol>
+                </Row>
+              </>
+            )}
           </Form>
         </>
       )}

@@ -155,10 +155,6 @@ const studentRouters = [
 
 const coachRouters = [
   {
-    path: '/coachContinueEducation',
-    component: lazy(() => import('erp/pages/coach/coachContinueEducation')),
-  },
-  {
     path: '/coachInfo',
     component: lazy(() => import('erp/pages/coach/coachInfo')),
   },
@@ -306,8 +302,12 @@ const statisticsRouters = [
 ];
 const robotCoachRouters = [
   {
-    path: '/robotCoach',
+    path: 'robotCoach/nvrSet',
     component: lazy(() => import('erp/pages/robotCoach/nvrSet')),
+  },
+  {
+    path: 'robotCoach/monitorManage',
+    component: lazy(() => import('erp/pages/robotCoach/monitorManage')),
   },
 ];
 

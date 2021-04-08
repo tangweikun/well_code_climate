@@ -4,7 +4,15 @@ import React, { useRef, useEffect } from 'react';
 import { isEmpty } from 'lodash';
 import { Map, Polyline, Polygon, APILoader, MapTypeControl } from '@uiw/react-baidu-map';
 
-export default function VehicleTrajectoryMap(props: any) {
+interface IProps {
+  paths: any[]; // TODO:二维数组经纬度数据
+  center?: object | null;
+  zoom?: number;
+  isTeachingJournal?: boolean;
+  mapType?: string;
+}
+
+export default function VehicleTrajectoryMap(props: IProps) {
   const { paths, center, zoom = 16, isTeachingJournal = false, mapType = 'Polygon' } = props;
   const colors = [
     '#C7000B ',

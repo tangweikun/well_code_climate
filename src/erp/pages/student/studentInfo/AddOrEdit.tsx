@@ -282,31 +282,32 @@ export default function AddOrEdit(props: any) {
       // 'jump_fromarea',
       'train_price_online',
       'head_img_oss_id',
+      'drilicenceossid',
     ];
     const dateArr = ['birthday', 'fstdrilicdate', 'applydate']; //日期相关的字段
-    if (form.isFieldsTouched(regInfos)) {
-      regInfos.forEach((item: any) => {
-        if (fieldsNoMngByFormArr.includes(item)) {
-          if (eval(item) !== _get(data, item, '')) {
-            strArr.push(studentFieldLabelMapping[item]);
-          }
-        } else {
-          if (dateArr.includes(item)) {
-            if (
-              item !== 'applydate' && //前端没有报名日期配置（后端自动生成），无需判断
-              _get(values, item) !== undefined &&
-              formatTime(_get(values, item, ''), 'DATE') !== formatTime(_get(data, item, ''), 'DATE')
-            ) {
-              strArr.push(studentFieldLabelMapping[item]);
-            }
-          } else if (_get(values, item) !== undefined && _get(values, item, '') !== _get(data, item, '')) {
-            strArr.push(studentFieldLabelMapping[item]);
-          }
-        }
-      });
 
-      str = strArr.join(',');
-    }
+    regInfos.forEach((item: any) => {
+      if (fieldsNoMngByFormArr.includes(item)) {
+        if (eval(item) !== _get(data, item, '')) {
+          strArr.push(studentFieldLabelMapping[item]);
+        }
+      } else {
+        if (dateArr.includes(item)) {
+          if (
+            item !== 'applydate' && //前端没有报名日期配置（后端自动生成），无需判断
+            _get(values, item) !== undefined &&
+            formatTime(_get(values, item, ''), 'DATE') !== formatTime(_get(data, item, ''), 'DATE')
+          ) {
+            strArr.push(studentFieldLabelMapping[item]);
+          }
+        } else if (_get(values, item) !== undefined && _get(values, item, '') !== _get(data, item, '')) {
+          strArr.push(studentFieldLabelMapping[item]);
+        }
+      }
+    });
+
+    str = strArr.join(',');
+
     return str;
   }
 
@@ -353,6 +354,17 @@ export default function AddOrEdit(props: any) {
       //   return;
       // }
 
+      //   {/*业务类型为货运运营初领或货运运营增领，且配置监管地址为国交时才显示该项 jGRequestPlatformType:0 国交  businessType：11：初领 12：增领*/}
+      if (
+        !isEdit &&
+        jGRequestPlatformType === '0' &&
+        (businessType === '11' || businessType === '12') &&
+        !drilicenceossid
+      ) {
+        message.error('请上传驾驶证图片');
+        return;
+      }
+
       const query = {
         name: _get(values, 'name'),
         sex: _get(values, 'sex'),
@@ -362,7 +374,7 @@ export default function AddOrEdit(props: any) {
         phone: _get(values, 'phone'),
         address: _get(values, 'address'),
         head_img_oss_id,
-        drilicenceossid,
+        drilicenceossid: businessType === '11' || businessType === '12' ? drilicenceossid : '',
         busitype: _get(values, 'busitype'),
         drilicnum,
         fstdrilicdate: formatTime(_get(values, 'fstdrilicdate'), 'DATE'),
@@ -449,6 +461,23 @@ export default function AddOrEdit(props: any) {
         });
         return confirm({
           title: `请确认是否为该学员报名${_get(selectSchool, '0.text', '')}？报名后，驾校不可更改。`,
+          onOk() {
+            run(getQuery());
+          },
+          okText: '确认',
+          cancelText: '取消',
+        });
+      }
+      // 新增情况下需要确认班级信息
+      if (!isEdit) {
+        return confirm({
+          title: '信息提示',
+          content: (
+            <>
+              请确认学员班级 <span style={{ fontSize: '28px', fontWeight: 'bold' }}>【{package_name}】</span>
+              学员班级确认后将不可修改。
+            </>
+          ),
           onOk() {
             run(getQuery());
           },
@@ -550,6 +579,7 @@ export default function AddOrEdit(props: any) {
       >
         {
           <Button
+            loading={readCardLoading}
             style={{ float: 'right' }}
             onClick={async () => {
               setReadCardLoading(true);
@@ -560,9 +590,9 @@ export default function AddOrEdit(props: any) {
               }
               const readCardResult = await readIdCardData(form, 'name', (data: any, imgData: any) => {
                 setCardtype('1');
-                form.setFieldsValue({ idcard: _get(data, 'idNo', '') });
-                setImageUrl(_get(imgData, 'url'));
-                setImgId(_get(imgData, 'id'));
+                _get(data, 'idNo', '') && form.setFieldsValue({ idcard: _get(data, 'idNo', '') });
+                _get(imgData, 'url') && setImageUrl(_get(imgData, 'url'));
+                _get(imgData, 'id') && setImgId(_get(imgData, 'id'));
                 setReadCardLoading(false);
               });
               if (isEmpty(readCardResult)) {
@@ -762,8 +792,6 @@ export default function AddOrEdit(props: any) {
                     disabled={isEdit && keyInfos.includes('busitype')}
                     onChange={(value: string) => {
                       setBusinessType(value);
-                      setDrilicenceossid('');
-                      setDriveUrl('');
                       setPackage_id('');
                       if (value === '1' || value === '11' || value === '12') {
                         if (cardtype === '1') {

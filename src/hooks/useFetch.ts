@@ -57,7 +57,9 @@ export const useFetch = ({
           setFetchStore((fetchStore: any) => ({ ...fetchStore, isError: true, isLoading: false, finished: true }));
         }
       } finally {
-        setFetchStore((fetchStore: any) => ({ ...fetchStore, isLoading: false, finished: true }));
+        if (!didCancel) {
+          setFetchStore((fetchStore: any) => ({ ...fetchStore, isLoading: false, finished: true }));
+        }
       }
     };
 

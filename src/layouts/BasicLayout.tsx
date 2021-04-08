@@ -13,7 +13,6 @@ import { useVisible } from 'hooks';
 import ChangePassword from './ChangePassword';
 import ChangeSchool from './ChangeSchool';
 import { ErrorBoundary } from 'components';
-import { clear } from 'services';
 const { Header, Content } = Layout;
 
 type IProps = {
@@ -37,8 +36,32 @@ export default function BasicLayout(props: IProps) {
 
   const menu = (
     <Menu>
-      <Menu.Item onClick={clear}>修改密码</Menu.Item>
+      <Menu.Item onClick={_switchVisible}>修改密码</Menu.Item>
       <Menu.Item onClick={handleLogout}>退出</Menu.Item>
+    </Menu>
+  );
+  const tool = (
+    <Menu>
+      <Menu.Item
+        onClick={() => {
+          const link = document.createElement('a');
+          link.href = `${PUBLIC_URL}package.zip`;
+          link.download = 'package.zip';
+          link.click();
+        }}
+      >
+        读卡插件
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          const link = document.createElement('a');
+          link.href = `${PUBLIC_URL}print_package.zip`;
+          link.download = 'print_package.zip';
+          link.click();
+        }}
+      >
+        打印插件
+      </Menu.Item>
     </Menu>
   );
 
@@ -74,18 +97,11 @@ export default function BasicLayout(props: IProps) {
                   </span>
                 </Dropdown>
                 <Divider type="vertical" style={{ margin: '0 18px', background: '#fff' }} />
-                <span
-                  style={{ color: '#fff' }}
-                  className="pointer"
-                  onClick={() => {
-                    const link = document.createElement('a');
-                    link.href = `${PUBLIC_URL}package.zip`;
-                    link.download = 'package.zip';
-                    link.click();
-                  }}
-                >
-                  下载插件
-                </span>
+                <Dropdown overlay={tool}>
+                  <span className="pointer">
+                    工具下载 <DownOutlined />
+                  </span>
+                </Dropdown>
               </div>
             </div>
           </Header>

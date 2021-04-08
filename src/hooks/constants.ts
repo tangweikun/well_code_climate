@@ -55,6 +55,7 @@ export type TCategory =
   | 'traintime_apply_status_type'
   | 'exam_result_type'
   | 'trainning_time_type'
+  | 'train_finish_flag'
   // ---------------------wy-----------------------
   | 'trans_car_type'
   | 'gender_type'
@@ -105,7 +106,9 @@ export type TCategory =
   | 'binding_card_cert_type'
   | 'ic_apply_status'
   | 'student_type'
-  | 'stucardnocrc';
+  | 'stucardnocrc'
+  // ---------------------gjf-----------------------
+  | 'applymemo_code_type';
 
 export const HASH = {
   // ---------------------twk-----------------------
@@ -273,6 +276,7 @@ export const HASH = {
   traintime_apply_status_type: [], // 申报状态
   exam_result_type: [], // 考核结果
   trainning_time_type: [], // 培训时段
+  train_finish_flag: '', // 培训情况
   // ---------------------wy-----------------------
   trans_car_type: [], // 车辆类型
   card_type: [
@@ -525,6 +529,7 @@ export const HASH = {
     { label: '出生日期', value: 'birthday' },
     { label: '姓名', value: 'train_price' },
     { label: '证件类型', value: 'cardtype' },
+    { label: '驾驶证图片', value: 'drilicenceossid' },
   ],
   student_send_status: [
     { label: '成功', value: '1' },
@@ -564,4 +569,5 @@ export const HASH = {
     { label: '失败', value: '2' },
     { label: '强制签退', value: '3' },
   ], // 签退方式
+  applymemo_code_type: [], // 退学原因
 };

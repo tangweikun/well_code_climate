@@ -41,12 +41,7 @@ function TeachingJournal() {
 
   return (
     <>
-      {visible && (
-        <UploadArr
-          signstarttime_start={_get(search, 'signstarttime_start').format('YYYY-MM-DD')}
-          onCancel={_switchVisible}
-        />
-      )}
+      {visible && <UploadArr signstarttime_start={_get(search, 'signstarttime_start')} onCancel={_switchVisible} />}
 
       <Search
         filters={[

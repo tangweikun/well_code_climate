@@ -1,7 +1,7 @@
 // 预报名审核
 import React from 'react';
-import ForecastChecked from '../forecastExpected';
+import ForecastExpected from '../forecastExpected';
 
-export default function forecastExpected() {
-  return <ForecastChecked isChecked={true} />;
+export default function ForecastChecked() {
+  return <ForecastExpected isChecked={true} />;
 }

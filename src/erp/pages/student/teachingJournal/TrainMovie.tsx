@@ -4,7 +4,7 @@ import { _getTrainingPhotosDetail } from './_api';
 import { _get } from 'utils';
 import { PopoverImg } from 'components';
 
-export default function Details(props: any) {
+export default function TrainMovie(props: any) {
   const { currentRecord } = props;
 
   const { data = [] } = useFetch({

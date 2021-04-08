@@ -1,5 +1,5 @@
 // 阶段报审管理
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Tooltip, message } from 'antd';
 import Review from './Review';
 import InputPIN from './InputPIN';
@@ -32,10 +32,11 @@ import { AuthButton, Search, AuthWrapper, Signature } from 'components';
 import { Auth, previewPdf, _getReaderName, _readSignature, base64ConvertFile, _doSign, _get } from 'utils';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
-import { downloadFile } from 'utils';
+import { downloadFile, printingBatch } from 'utils';
 import { DownloadOutlined } from '@ant-design/icons';
+import { UpdatePlugin } from 'components';
 
-function AssesserInfo() {
+function PhasedReview() {
   const [search, _handleSearch] = useSearch();
   const [visible, _switchVisible] = useVisible();
   const [pinVisible, _switchPinVisible] = useVisible();
@@ -51,6 +52,12 @@ function AssesserInfo() {
   const [batch, setBatch] = useState(false);
   const [_showConfirm] = useConfirm();
   const [signVisible, setSignVisible] = useVisible();
+  const [printUrls, setPrintUrls] = useState<any>([]);
+  const [isPrint, setIsPrint] = useState(false);
+  const [isPreview, setIsPreview] = useState(true);
+  const [previewLoading, setPreviewLoading] = useState(false);
+  const [printLoading, setPrintLoading] = useState(false);
+  const [noSoftwareVisible, setNoSoftwareVisible] = useVisible();
 
   const { isLoading, data } = useFetch({
     request: _getFinalAssess,
@@ -68,6 +75,19 @@ function AssesserInfo() {
       setPagination({ ...pagination, total: _get(data, 'total', 0) });
     },
   });
+
+  useEffect(() => {
+    if (isPrint) {
+      if (_get(printUrls, 'length', 0) > 0) {
+        const res = printingBatch(printUrls, isPreview);
+        if (res === 'NO_SOFTWARE') {
+          setNoSoftwareVisible();
+        }
+      } else {
+        message.error('当前没有可打印的文件');
+      }
+    }
+  }, [isPrint, isPreview, printUrls]);
 
   const SubjectApplyStatusHash = useHash('SubjectApplyStatus'); // 核实状态
   const subjectHash = useHash('SchoolSubjectApply'); // 报审类型
@@ -367,7 +387,38 @@ function AssesserInfo() {
     selectedRowKeys,
   };
 
-  //批量上报
+  async function getBatchPdfUrl(index: any) {
+    if (index > selectedRowKeys.length) {
+      setPreviewLoading(false);
+      setPrintLoading(false);
+      return;
+    }
+
+    if (index === selectedRowKeys.length) {
+      setIsPrint(true);
+      setPreviewLoading(false);
+      setPrintLoading(false);
+      return;
+    }
+
+    let res: any = {};
+
+    res = await _getReport({ id: selectedRowKeys[index] });
+
+    setIndex((index) => index + 1);
+    if (_get(res, 'code') !== 200) {
+      setPreviewLoading(false);
+      setPrintLoading(false);
+      index < selectedRowKeys.length && getBatchPdfUrl(index + 1);
+    } else {
+      _get(res, 'data', '') &&
+        setPrintUrls((printUrls: any) => {
+          return [...printUrls, _get(res, 'data', '')];
+        });
+      index < selectedRowKeys.length && getBatchPdfUrl(index + 1);
+    }
+  }
+
   async function batchReport(index: any, errorCount: any) {
     if (index > selectedRowKeys.length) {
       return;
@@ -410,6 +461,9 @@ function AssesserInfo() {
 
   return (
     <div>
+      {noSoftwareVisible && (
+        <UpdatePlugin onCancel={setNoSoftwareVisible} info="无法调用打印程序" plugin="print_package.zip" />
+      )}
       {signVisible && (
         <Signature
           onCancel={setSignVisible}
@@ -509,14 +563,19 @@ function AssesserInfo() {
 
           batchReport(0, 0);
         }}
-        className="mr20 mb20"
+        className="mr10 mb20"
         disabled={_get(search, 'isapply') !== '0' && _get(search, 'isapply') !== '5'}
       >
         批量上报
       </AuthButton>
 
       <AuthWrapper authId="student/phasedReview:btn5">
-        <Tooltip color={'#333'} placement="right" title="请先查询核实状态为已初审学员或上报中，选择后，再点击批量上报">
+        <Tooltip
+          color={'#333'}
+          className="mr20"
+          placement="right"
+          title="请先查询核实状态为已初审学员或上报中，选择后，再点击批量上报"
+        >
           <QuestionCircleOutlined />
         </Tooltip>
       </AuthWrapper>
@@ -559,6 +618,50 @@ function AssesserInfo() {
         导出
       </AuthButton>
 
+      {/* <AuthButton
+        // authId="student/phasedReview:btn8"
+        type="primary"
+        loading={previewLoading}
+        onClick={async () => {
+          setIsPreview(true);
+          setIsPrint(false);
+          if (selectedRowKeys.length < 1) {
+            message.error('请选中需要打印的数据');
+            return;
+          }
+
+          setPreviewLoading(true);
+          setIndex(0);
+          setPrintUrls([]);
+          getBatchPdfUrl(0);
+        }}
+        className="mr20 mb20"
+        disabled={_get(selectedRowKeys, 'length') === 0}
+      >
+        预览打印
+      </AuthButton>
+      <AuthButton
+        // authId="student/phasedReview:btn9"
+        type="primary"
+        loading={printLoading}
+        onClick={async () => {
+          setIsPreview(false);
+          setIsPrint(false);
+          if (selectedRowKeys.length < 1) {
+            message.error('请选中需要打印的数据');
+            return;
+          }
+          setPrintLoading(true);
+          setIndex(0);
+          setPrintUrls([]);
+          getBatchPdfUrl(0);
+        }}
+        className="mr20 mb20"
+        disabled={_get(selectedRowKeys, 'length') === 0}
+      >
+        直接打印
+      </AuthButton> */}
+
       <Table
         scroll={{ x: 2000 }}
         columns={columns}
@@ -576,4 +679,4 @@ function AssesserInfo() {
   );
 }
 
-export default AssesserInfo;
+export default PhasedReview;

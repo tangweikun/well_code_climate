@@ -6,7 +6,7 @@ import { _getNvrSetupList, _getCarList, _deleteNvrItem } from './_api';
 import AddOrEdit from './AddOrEdit';
 import { AuthButton, Search } from 'components';
 
-export default function Demo() {
+export default function NvrSet() {
   const [optionCarData, setOptionCarData] = useState<any>([]); // 车牌号下拉数据
   const [_showDeleteConfirm] = useConfirm();
   const {

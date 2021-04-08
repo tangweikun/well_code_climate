@@ -4,7 +4,7 @@ import { _get } from 'utils';
 import { useFetch, useHash } from 'hooks';
 import { _updateTraSign, _noResetList } from './_api';
 
-export default function AddOrEdit(props: any) {
+export default function ChangeReset(props: any) {
   const { onCancel, onOk, idCard, type } = props;
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
 

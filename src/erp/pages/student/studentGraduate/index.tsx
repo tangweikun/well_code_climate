@@ -12,7 +12,7 @@ import {
 } from 'hooks';
 import { _getStudentFace, _getFileUrl, _upload, _exportGraduatesListBefore, _export } from './_api';
 import { _getStudentList } from 'api';
-import { Table, message } from 'antd';
+import { Table, message, Popover, Button } from 'antd';
 import { AuthButton, Search } from 'components';
 import Add from './Add';
 import ReviewResult from './ReviewResult';
@@ -66,6 +66,16 @@ function StudentGraduate() {
     { title: '申请人', dataIndex: 'applyname' },
     { title: '申请时间', dataIndex: 'createtime' },
     { title: '结业证号', dataIndex: 'JYZNUMCODE' },
+    {
+      title: '核实说明',
+      dataIndex: 'respmsg',
+      render: (respmsg: string) =>
+        respmsg && (
+          <Popover content={respmsg}>
+            <Button type="link">原因</Button>
+          </Popover>
+        ),
+    },
     { title: '核实状态', dataIndex: 'isapply', render: (isapply: string) => isApplyStuHAsh[isapply] },
     {
       title: '操作',
@@ -151,7 +161,7 @@ function StudentGraduate() {
       {detailsVisible && <Details onCancel={_switchDetailsVisible} sid={sid} />}
 
       {/* 结业审核 */}
-      {graduateVisible && <GraduateReview onCancel={_switchGraduateVisible} />}
+      {graduateVisible && <GraduateReview onCancel={_switchGraduateVisible} _forceUpdate={forceUpdate} />}
 
       {reviewVisible && (
         <ReviewResult

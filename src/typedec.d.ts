@@ -42,6 +42,8 @@ declare module 'three/examples/jsm/loaders/OBJLoader';
 
 declare module 'three/examples/jsm/loaders/MTLLoader';
 
+declare module '@testing-library/react-hooks';
+
 declare interface Window {
   // TODO: 可扩展全局变量
 }

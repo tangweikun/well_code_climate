@@ -2,15 +2,21 @@ import React from 'react';
 import { Modal, Row } from 'antd';
 import { PUBLIC_URL } from 'constants/env';
 
-export default function UpdatePlugin(props: any) {
-  const { onCancel, info = '' } = props;
+interface IProps {
+  onCancel(): void;
+  info?: string;
+  plugin?: string;
+}
+
+export default function UpdatePlugin(props: IProps) {
+  const { onCancel, info = '', plugin = 'package.zip' } = props;
   const Download = (text: any) => (
     <span
       className="color-primary pointer"
       onClick={() => {
         const link = document.createElement('a');
-        link.href = `${PUBLIC_URL}package.zip`;
-        link.download = 'package.zip';
+        link.href = `${PUBLIC_URL}${plugin}`;
+        link.download = `${plugin}`;
         link.click();
       }}
     >

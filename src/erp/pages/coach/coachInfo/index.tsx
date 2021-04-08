@@ -89,8 +89,8 @@ export default function CoachInfo() {
       setLoading(false);
       return setUpdatePluginVisible();
     }
-    const cardNoRes = await getIdCardId();
     const certNumRes = await getIdCardInfo();
+    const cardNoRes = await getIdCardId();
     setLoading(false);
     if (_get(cardNoRes, 'result') === false || _get(certNumRes, 'result') === false) {
       return setNoSoftWareVisible();

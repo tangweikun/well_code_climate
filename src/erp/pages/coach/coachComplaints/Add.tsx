@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Modal, Select } from 'antd';
-import { _addComplaints } from './_api';
-import { _getFinalAssess } from 'erp/pages/coach/coachContinueEducation/_api';
+import { _addComplaints, _getFinalAssess } from './_api';
 import { _getStudentList } from 'api';
 import { useFetch } from 'hooks';
 import { Auth, _get } from 'utils';

@@ -1,7 +1,13 @@
 import { useContext } from 'react';
 import GlobalContext from 'globalContext';
 
-export default function AuthWrapper(props: any) {
+interface IProps {
+  authId: string;
+  insertWhen?: boolean;
+  children: any; // TODO:
+}
+
+export default function AuthWrapper(props: IProps) {
   const { authId, insertWhen = true } = props;
   const { $elementAuthTable } = useContext(GlobalContext);
 

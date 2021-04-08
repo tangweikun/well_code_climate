@@ -4,7 +4,7 @@ import { Modal, Form, DatePicker } from 'antd';
 import { _addDetect, _updateDetect } from '../_api';
 import moment from 'moment';
 
-export default function AddDetectProtect(props: any) {
+export default function AddOrEditDetect(props: any) {
   const { onCancel, onOk, currentRecord, isEdit, title, carid } = props;
   const [form] = Form.useForm();
 

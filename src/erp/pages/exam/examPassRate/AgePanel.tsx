@@ -2,7 +2,7 @@ import React from 'react';
 import { Tabs } from 'antd';
 import AgeStatistic from './AgeStatistic';
 
-export default function CarTypePanel() {
+export default function AgePanel() {
   const { TabPane } = Tabs;
   const tabs = [
     { tab: '近一周', period: 'week' },

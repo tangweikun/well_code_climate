@@ -6,7 +6,7 @@ import { _addNvrItem, _editNvrItem, _getKeyDetails, _getCarList } from './_api';
 import { Loading, ItemCol } from 'components';
 import { RULES } from 'constants/rules';
 
-export default function AddNvrEdit(props: any) {
+export default function AddOrEdit(props: any) {
   const [licnumOptionData, setLicnumOptionData] = useState([]);
 
   const { onCancel, title, onOk, currentId, isEdit } = props;

@@ -12,7 +12,7 @@ import { _get } from 'utils';
 
 const { Option } = Select;
 
-export default function SimulationAppointment(props: any) {
+export default function Appointment(props: any) {
   const { traincode } = props;
   const [pagination, setPagination, tablePagination] = useTablePagination({});
   const [ignore, forceUpdate] = useForceUpdate();

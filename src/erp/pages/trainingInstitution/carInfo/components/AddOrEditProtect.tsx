@@ -6,7 +6,7 @@ import moment from 'moment';
 
 const { RangePicker } = DatePicker;
 
-export default function AddDetectProtect(props: any) {
+export default function AddOrEditProtect(props: any) {
   const { onCancel, onOk, currentRecord, isEdit, title, carid } = props;
   const [form] = Form.useForm();
   const [timeRange, setTimeRange] = useState<any>([

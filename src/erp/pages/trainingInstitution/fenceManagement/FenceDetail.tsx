@@ -6,7 +6,7 @@ import { ItemCol } from 'components';
 import TeachAreaDetail from '../teachingArea/Details';
 import { generateIdForDataSource, _get } from 'utils';
 
-export default function ReleaseVersion(props: any) {
+export default function FenceDetail(props: any) {
   const { onCancel, currentRecord, carFid, isCarDetail } = props;
   const [pagination, setPagination, tablePagination] = useTablePagination({});
   const [detailVisible, setDetailVisible] = useVisible();

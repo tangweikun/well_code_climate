@@ -4,7 +4,7 @@ import { _cancelOrder } from './_api';
 import { _get } from 'utils';
 import { RULES } from 'constants/rules';
 
-export default function Details(props: any) {
+export default function CancelOrder(props: any) {
   const { onCancel, onOk, skuId, selectedData } = props;
   const [form] = Form.useForm();
 

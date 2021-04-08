@@ -3,10 +3,17 @@ import { Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Auth, beforeUpload, _get } from 'utils';
 import { USER_CENTER_URL } from 'constants/env';
+import { UploadFile } from 'antd/lib/upload/interface';
+
+interface IProps {
+  fileList: UploadFile[];
+  setFileList(fileList: any): void;
+  limit?: number;
+}
 
 const action = USER_CENTER_URL + '/api/video-face/tmpFile/upload';
 
-export default function MultipleUpload(props: any) {
+export default function MultipleUpload(props: IProps) {
   const { fileList = [], setFileList, limit = 100 } = props;
 
   return (

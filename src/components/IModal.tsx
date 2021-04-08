@@ -1,7 +1,12 @@
 import React from 'react';
 import { Modal, Spin } from 'antd';
 
-export default function IModal(props: any) {
+interface IProps {
+  spinning?: boolean;
+  [key: string]: any;
+}
+
+export default function IModal(props: IProps) {
   const { spinning = false, ...rest } = props;
 
   return (

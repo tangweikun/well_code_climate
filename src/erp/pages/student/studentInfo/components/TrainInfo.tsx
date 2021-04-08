@@ -86,7 +86,7 @@ export default function TrainInfo(props: any) {
       render: (periodTotaltime: any, row: any, index: number): any => {
         // 如果发现当前行 mutualTimesFlag为1 则根据subject字段合并进行向下累加 否则不处理 （注意：setAddTableCellNumber方法不会判断下一行mutualTimesFlag为1,所以返回字段需要注意在每一条需要累加的数据中mutualTimesFlag为1 否则达不到预期值）
         if (Number(_get(row, 'mutualTimesFlag', 0)) === 1) {
-          setAddTableCellNumber(periodTotaltime, row, index, 'periodTotaltime');
+          return setAddTableCellNumber(periodTotaltime, row, index, 'periodTotaltime');
         } else {
           return periodTotaltime || null;
         }

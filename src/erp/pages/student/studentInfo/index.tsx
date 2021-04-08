@@ -131,6 +131,7 @@ function StudentInfo() {
   const [bindIdCardVisible, setBindIdCardVisible] = useVisible();
   const [loading, setLoading] = useState(false);
   const [updatePluginVisible, setUpdatePluginVisible] = useVisible();
+  const [idLoading, setIdLoading] = useState(false);
 
   async function bindCard() {
     setBindIdCardVisible();
@@ -141,8 +142,8 @@ function StudentInfo() {
       setInfo('无法进行绑定二代证');
       return setUpdatePluginVisible();
     }
-    const cardNoRes = await getIdCardId();
     const certNumRes = await getIdCardInfo();
+    const cardNoRes = await getIdCardId();
     setLoading(false);
     if (_get(cardNoRes, 'result') === false || _get(certNumRes, 'result') === false) {
       return setNoSoftWareVisible();
@@ -574,17 +575,22 @@ function StudentInfo() {
       </AuthButton>
 
       <AuthButton
+        authId="student/studentInfo:btn10"
         type="primary"
+        loading={idLoading}
         style={{ marginRight: 20 }}
         onClick={async () => {
+          setIdLoading(true);
           const update: any = await isForceUpdatePlugin();
           if (update) {
             setLoading(false);
+            setIdLoading(false);
             setInfo('无法进行读二代证');
             return setUpdatePluginVisible();
           }
           const result = await getIdCardInfo();
           if (!_get(result, 'idNo', '')) {
+            setIdLoading(false);
             message.info('未检测到身份证');
             return;
           }
@@ -592,6 +598,7 @@ function StudentInfo() {
 
           _handleSearch('idcard', id);
           setIdCard(id + Math.random());
+          setIdLoading(false);
         }}
       >
         读二代证

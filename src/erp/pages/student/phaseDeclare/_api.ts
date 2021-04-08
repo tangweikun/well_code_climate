@@ -40,3 +40,9 @@ export async function _editSubmit(query: {}) {
 export async function _getApplyResult(query: { sid: any }) {
   return await request(`${CORE_PREFIX}/v1/stuTrainTimeApply/getApplyResult`, 'GET', query);
 }
+
+// 获取其他材料显示内容组ID
+// http://192.168.192.132:3000/project/193/interface/api/24678
+export async function _getOtherInfoGroupid() {
+  return await request(`${CORE_PREFIX}/v1/stuTrainTimeApply/getOtherInfoGroupid`, 'GET');
+}

@@ -10,7 +10,7 @@ import { UploadOutlined, DownloadOutlined } from '@ant-design/icons';
 import { EXAM_PREFIX } from 'constants/env';
 import { downloadFile, generateIdForDataSource, _get } from 'utils';
 
-export default function StudentPushRecord() {
+export default function ExamResult() {
   const { tableProps, search, _refreshTable, _handleSearch } = useTablePro({
     request: _getExamList,
     dataSourceFormatter: (dataSource: any[]) => generateIdForDataSource(dataSource),

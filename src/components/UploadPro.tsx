@@ -4,7 +4,15 @@ import { Auth, beforeUpload, _get } from 'utils';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { USER_CENTER_URL } from 'constants/env';
 
-export default function UploadPro(props: any) {
+interface IProps {
+  imageUrl: string | undefined;
+  setImageUrl(imageUrl: any): void;
+  callback?: Function;
+  setImgId(imgId: any): void;
+  disabled?: boolean;
+}
+
+export default function UploadPro(props: IProps) {
   const { imageUrl, setImageUrl, callback = () => {}, setImgId, disabled } = props;
   const [isLoading, setIsLoading] = useState(false);
   const action = USER_CENTER_URL + '/api/video-face/tmpFile/upload';

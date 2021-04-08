@@ -6,7 +6,7 @@ import { _addConfigSchool, _configSchool } from '../_api';
 
 const { SHOW_CHILD } = TreeSelect;
 
-function AddCourseTeach(props: any) {
+function AddSimulateTeach(props: any) {
   const { onCancel, title, onOk, sbnid } = props;
   const [selectedSchool, setSelectedSchool] = useState([]);
 
@@ -99,4 +99,4 @@ function AddCourseTeach(props: any) {
   );
 }
 
-export default AddCourseTeach;
+export default AddSimulateTeach;

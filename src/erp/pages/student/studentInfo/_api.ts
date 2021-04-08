@@ -425,3 +425,28 @@ export async function _getTrainClassReport(query: {
 export async function _getJGRequestPlatformType() {
   return await request(`${CORE_PREFIX}/v1/sysbase/code/getJGRequestPlatformType`, 'GET');
 }
+//学员电子教学日志报表访问地址接口_copy
+//http://192.168.192.132:3000/project/193/interface/api/25455
+export async function _getStuStageReportStageTaoda(query: {
+  sid: string; // 学员编码sid
+}) {
+  return await request(`${CORE_PREFIX}/v1/studentReport/getStuStageReportStageTaoda/${query.sid}`, 'GET');
+}
+
+//http://192.168.192.132:3000/project/193/interface/api/25693
+export async function _getStuClassRecordReportStageTaoda(query: {
+  sid: string; // 学员编码sid
+}) {
+  return await request(`${CORE_PREFIX}/v1/studentReport/getStuClassRecordReportStageTaoda/${query.sid}`, 'GET');
+}
+
+//http://192.168.192.132:3000/project/193/interface/api/25693
+export async function _getStuClassRecordReportStageTaodaSubject(query: {
+  sid: string; // 学员编码sid
+  subject: any;
+}) {
+  return await request(
+    `${CORE_PREFIX}/v1/studentReport/getStuClassRecordReportStageTaoda/${query.sid}/${query.subject}`,
+    'GET',
+  );
+}

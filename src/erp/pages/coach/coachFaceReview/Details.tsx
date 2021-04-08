@@ -5,7 +5,7 @@ import { _getDetails } from './_api';
 import { _get } from 'utils';
 import { Loading, PopoverImg } from 'components';
 
-function ApplyDropped(props: any) {
+function Details(props: any) {
   const { onCancel, currentId } = props;
   const [form] = Form.useForm();
 
@@ -42,4 +42,4 @@ function ApplyDropped(props: any) {
   );
 }
 
-export default ApplyDropped;
+export default Details;

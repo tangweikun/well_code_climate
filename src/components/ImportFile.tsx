@@ -4,7 +4,12 @@ import { Auth, _get } from 'utils';
 import { USER_CENTER_URL } from 'constants/env';
 import { InboxOutlined } from '@ant-design/icons';
 
-export default function AddOrEdit(props: any) {
+interface IProps {
+  onCancel(): void;
+  fileUrl: string;
+}
+
+export default function ImportFile(props: IProps) {
   const { onCancel, fileUrl } = props;
 
   // 导入

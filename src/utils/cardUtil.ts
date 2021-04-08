@@ -135,7 +135,7 @@ export async function getSamid() {
 export async function getIdCardInfo() {
   await startPort();
   const res = await _request('http://127.0.0.1:12321/WlSdt_api/ReadBaseMsg?Port=1001&ReadType=0');
-  await closePort();
+  // await closePort();
   return res;
 }
 
@@ -155,7 +155,7 @@ export async function getIdCard() {
 
 /*读取身份证物理卡号*/
 export async function getIdCardId() {
-  await startPort();
+  // await startPort();
   const res = await _request('http://127.0.0.1:12321/WlSdt_api/GetCardNo?Port=1001');
   await closePort();
   return res;
@@ -163,7 +163,7 @@ export async function getIdCardId() {
 
 /*读取身份证照片*/
 export async function getIdCardImg() {
-  await startPort();
+  // await startPort();
   const res = await _request('http://127.0.0.1:12321/WlSdt_api/ReadBaseMsg?Port=1001&ReadType=1');
   await closePort();
   return res;
@@ -338,4 +338,103 @@ export async function isForceUpdatePlugin() {
     .catch((error) => {
       return false;
     });
+}
+
+//机器人教练版本
+export async function _getRobotCoachVersion() {
+  const res = await _request('http://127.0.0.1:23432/RobotCoach/GetServerInfo');
+  return res;
+}
+
+//远程刹车
+export async function _carControl(query: {
+  CarLicence: string; // 车牌号
+  FootBrake: number; // 刹车状态：0--远程释放，1--远程刹车
+}) {
+  const res = await _request(
+    `http://127.0.0.1:23432/RobotCoach/CarControl?CarLicence=${query.CarLicence}&FootBrake=${query.FootBrake}`,
+  );
+  return res;
+}
+
+//单车定位数据查询 查找指定车辆的位置信息和信号
+export async function _getCarInfo(query: {
+  CarLicence: string;
+  CarStatus: string; //车辆IO状态：0 - 不读取IO状态 1 - 读取IO状态
+}) {
+  const res = await _request(
+    `http://127.0.0.1:23432/RobotCoach/GetCarInfo?CarLicence=${query.CarLicence}&CarStatus=${query.CarStatus}`,
+  );
+  return res;
+}
+
+//车辆对讲请求
+export async function _getTalkbackRequest() {
+  const res = await _request('http://127.0.0.1:23432/RobotCoach/TalkbackRequest');
+  return res;
+}
+
+//车辆对讲取消
+export async function _cancelTalkbackRequest(query: { CarLicence: string }) {
+  const res = await _request(`http://127.0.0.1:23432/RobotCoach/TalkbackCancel?CarLicence=${query.CarLicence}`);
+  return res;
+}
+
+//语音信息下发
+export async function _sendTalkbackResponse(query: {
+  CarLicence: string;
+  VoiceData: string; //语音内容
+}) {
+  const res = await _request(
+    `http://127.0.0.1:23432/RobotCoach/TalkbackResponse?CarLicence=${query.CarLicence}&VoiceData=${query.VoiceData}`,
+  );
+  return res;
+}
+
+//多车定位数据查询 查询指定车辆列表的最新车辆信息
+export async function _getCarsPosition(query: {
+  CarLicence: string;
+  Forceget: string; //Forceget  是否获取所有车辆位置信息：0 - 返回内存最新的且有更新的位置信息 1 - 强制获取所有车辆的位置信息
+}) {
+  const res = await _request(
+    `http://127.0.0.1:23432/RobotCoach/GetCarsPosition?Forceget=${query.Forceget}&Carlicences=${query.CarLicence}`,
+  );
+  return res;
+}
+
+//多车状态信息查询 ：在线离线
+export async function _getCarStatus(query: { CarLicence: string }) {
+  const res = await _request(`http://127.0.0.1:23432/RobotCoach/GetCarInfo?Carlicences=${query.CarLicence}`);
+  return res;
+}
+
+//车辆视频预览 指定某一辆车辆，发起视频监控请求。
+// CarLicence 车牌号码
+// videoPara 视频取流相关信息
+// status 启用或者关闭预览，启用预览则为：enable，关闭预览则为disable
+// mode 视频设备取流模式,默认为rtsp
+// ip 视频设备地址
+// user 视频设备登录用户
+// code 视频设备登录密码
+// channel 视频设备取流通道号 >=1
+// eg:http://127.0.0.1:23432/RobotCoach/VideoViewCar?Carlicences=%E6%B5%99A1234&VideoPara=enable,rtsp,172.16.8.250,admin,Well12345,101
+export async function _getVideoViewCar(query: {
+  CarLicence: string;
+  status: string;
+  mode: string;
+  ip: string;
+  user: string;
+  code: string;
+  channel: string;
+}) {
+  const res = await _request(
+    `http://127.0.0.1:23432/RobotCoach/VideoViewCar?Carlicences=${query.CarLicence}&status=${query.status}&mode=${query.mode}&ip=${query.ip}&user=${query.user}&code=${query.code}&channel=${query.channel}`,
+  );
+  return res;
+}
+
+//应用信息获取
+export async function _getServerInfo() {
+  const res = await _request(`http://127.0.0.1:23432/RobotCoach/GetServerInfo`);
+  return res;
 }
