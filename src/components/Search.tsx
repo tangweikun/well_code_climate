@@ -36,6 +36,7 @@ type TProps = {
   customRequest?: any;
   extraParamsForCustomRequest?: object;
   customCoachRequest?: any;
+  studentOptionData?: any[];
 };
 
 function Search(props: TProps) {
@@ -47,8 +48,9 @@ function Search(props: TProps) {
     customRequest,
     customCoachRequest,
     extraParamsForCustomRequest = {},
+    studentOptionData = [],
   } = props;
-  const [optionData, setOptionData] = useState<any>([]);
+  const [optionData, setOptionData] = useState<any>(studentOptionData);
   const [optionCoachData, setOptionCoachData] = useState<any>([]);
   const [customType, setCustomType] = useState('');
   const [coachCustomType, setCoachCustomType] = useState('');

@@ -56,6 +56,7 @@ export type TCategory =
   | 'exam_result_type'
   | 'trainning_time_type'
   | 'train_finish_flag'
+  | 'stu_drivetrain_status_old'
   // ---------------------wy-----------------------
   | 'trans_car_type'
   | 'gender_type'
@@ -276,7 +277,8 @@ export const HASH = {
   traintime_apply_status_type: [], // 申报状态
   exam_result_type: [], // 考核结果
   trainning_time_type: [], // 培训时段
-  train_finish_flag: '', // 培训情况
+  train_finish_flag: [], // 培训情况
+  stu_drivetrain_status_old: [], // 学员状态
   // ---------------------wy-----------------------
   trans_car_type: [], // 车辆类型
   card_type: [

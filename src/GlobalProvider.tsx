@@ -45,7 +45,7 @@ export default function GlobalProvider(props: IProps) {
     },
     depends: [$companyId],
   });
-
+  type RestParamsArgs = Parameters<typeof _getMenuTree>[0];
   // 左侧菜单栏
   const { data: $menuTree = [] } = useFetch({
     request: _getMenuTree,

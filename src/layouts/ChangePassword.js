@@ -22,12 +22,14 @@ export default function Edit(props) {
         form.validateFields().then(async (values) => {
           if (values.newPassword === values.confirmPassword) {
             const res = await _updatePassword({
-              id: Auth._get('userId'),
+              id: Auth.get('userId'),
               newPassword: _get(values, 'newPassword'),
               oldPassword: _get(values, 'oldPassword'),
             });
             if (_get(res, 'code') === 200) {
               onOk();
+            } else {
+              message.error(_get(res, 'message'));
             }
           } else {
             message.error('新密码与确认新密码必须保持一致');

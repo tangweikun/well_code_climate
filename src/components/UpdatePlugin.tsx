@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Row } from 'antd';
 import { PUBLIC_URL } from 'constants/env';
+import { downloadURL } from 'utils';
 
 interface IProps {
   onCancel(): void;
@@ -13,12 +14,7 @@ export default function UpdatePlugin(props: IProps) {
   const Download = (text: any) => (
     <span
       className="color-primary pointer"
-      onClick={() => {
-        const link = document.createElement('a');
-        link.href = `${PUBLIC_URL}${plugin}`;
-        link.download = `${plugin}`;
-        link.click();
-      }}
+      onClick={() => downloadURL({ url: `${PUBLIC_URL}${plugin}`, filename: plugin })}
     >
       {text}
     </span>

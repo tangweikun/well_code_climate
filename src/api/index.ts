@@ -67,7 +67,8 @@ export async function _getSchoolList() {
 }
 
 //查询营业网点绑定机构的下拉框接口，营业网点所属驾校+营业网点已绑驾
-export async function _getSchoolCombo(query: { sbnid: any; trainCode: any }) {
+//http://192.168.192.132:3000/project/183/interface/api/21416
+export async function _getSchoolCombo(query: { sbnid: any; traincode: any }) {
   return await request(`${NOT_CORE_PREFIX}/v1/schBranchNetwork/getSchoolsByNetwork`, 'GET', query);
 }
 
@@ -109,4 +110,12 @@ export async function _getTeachInfo(query: {
   id: string; // 驾校id
 }) {
   return await request(`${USER_CENTER_PREFIX}/v1/company/${query.id}/teachInfo`, 'GET', query);
+}
+
+// 查询基础信息
+// http://192.168.192.132:3000/project/198/interface/api/17608
+export async function _getBaseInfo(query: {
+  id: string; // 驾校id
+}) {
+  return await request(`${USER_CENTER_PREFIX}/v1/company/${query.id}/basicInfo`, 'GET', query);
 }

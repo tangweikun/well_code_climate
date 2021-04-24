@@ -21,3 +21,4 @@ export * from './insertWhen';
 export * from './_get';
 export * from './printUtils';
 export * from './decimalSum';
+export * from './downloadURL';

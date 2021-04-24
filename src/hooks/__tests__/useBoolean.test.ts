@@ -8,7 +8,7 @@ describe('useBoolean', () => {
     expect(useBoolean).toBeDefined();
   });
 
-  it('test on methods', async () => {
+  it('test on methods', () => {
     const { result } = setUp();
     expect(result.current[0]).toBeFalsy();
 

@@ -1,11 +1,10 @@
-// uwc-debug-below
 import React, { useState, useMemo, useEffect, useContext, ReactNode } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Layout, Divider, Dropdown, Menu } from 'antd';
 import { MenuOutlined, MenuFoldOutlined, DownOutlined } from '@ant-design/icons';
 import Navigation from './Navigation';
 import styles from './BasicLayout.module.css';
-import { Auth, handleLogout, generateMenuMap, _get } from 'utils';
+import { Auth, handleLogout, generateMenuMap, _get, downloadURL } from 'utils';
 import { PRIMARY_COLOR, FONT_SIZE_BASE } from 'constants/styleVariables';
 import { PUBLIC_URL } from 'constants/env';
 import GlobalContext from 'globalContext';
@@ -42,24 +41,10 @@ export default function BasicLayout(props: IProps) {
   );
   const tool = (
     <Menu>
-      <Menu.Item
-        onClick={() => {
-          const link = document.createElement('a');
-          link.href = `${PUBLIC_URL}package.zip`;
-          link.download = 'package.zip';
-          link.click();
-        }}
-      >
+      <Menu.Item onClick={() => downloadURL({ url: `${PUBLIC_URL}package.zip`, filename: 'package.zip' })}>
         读卡插件
       </Menu.Item>
-      <Menu.Item
-        onClick={() => {
-          const link = document.createElement('a');
-          link.href = `${PUBLIC_URL}print_package.zip`;
-          link.download = 'print_package.zip';
-          link.click();
-        }}
-      >
+      <Menu.Item onClick={() => downloadURL({ url: `${PUBLIC_URL}print_package.zip`, filename: 'print_package.zip' })}>
         打印插件
       </Menu.Item>
     </Menu>

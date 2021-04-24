@@ -2,7 +2,11 @@ import { request } from 'services';
 
 // 查询树形菜单列表
 // http://192.168.192.132:3000/project/98/interface/api/4301
-export async function _getMenuTree() {
+interface I_getMenuTree {
+  companyId: string | null;
+  username: string;
+}
+export async function _getMenuTree(_: I_getMenuTree) {
   return request(`/api/usercenter/menu/tree?category=ERP`, 'GET');
 }
 

@@ -20,20 +20,20 @@ interface IReturn {
   data: any;
 }
 
-export const useFetch = ({
+export const useFetch = <T>({
   request = () => Promise.resolve(),
-  query = {},
+  query,
   depends = [],
   callback = () => {},
   requiredFields = [],
   forceCancel = false, // 取消请求
-}: IParams): IReturn => {
+}: IParams<T>): IReturn => {
   const [fetchStore, setFetchStore] = useState({ res: null, isLoading: true, isError: false, finished: false } as any);
-
+  const _query: any = query;
   useEffect(() => {
     let didCancel = false;
     // 如果没有传入必填字段则不触发请求 | 主动取消请求
-    if (requiredFields.some((field: string) => query[field] == null) || forceCancel) {
+    if (requiredFields.some((field: string) => typeof _query === 'object' && _query[field] == null) || forceCancel) {
       setFetchStore((fetchStore: any) => ({ ...fetchStore, isLoading: false }));
       return;
     }

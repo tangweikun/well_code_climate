@@ -19,7 +19,7 @@ export const useOptions = (
 ) => {
   const { $optionStore, $setOptionStore, $setHashStore } = useContext(OptionsContext);
 
-  const isExist = !isEmpty($optionStore[category]);
+  const isExist = !isEmpty($optionStore[`${parentCodeKey}${category}`]);
   const specialCategoryMap = {
     SchoolSubjectApply: {
       // 获取驾校报审科目列表(阶段报审)

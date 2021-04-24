@@ -13,7 +13,7 @@ export function useTablePagination({
   total = 0,
   current = 1,
   isSimplePagination = false,
-}: TPagination): [TPagination, (arg: any) => void, any] {
+}: TPagination): [Required<Omit<TPagination, 'isSimplePagination'>>, (arg: any) => void, any] {
   const [pagination, setPagination] = useState({
     pageSize,
     total,

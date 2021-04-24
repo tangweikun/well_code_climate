@@ -5,15 +5,16 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { USER_CENTER_URL } from 'constants/env';
 
 interface IProps {
-  imageUrl: string | undefined;
+  imageUrl?: string;
   setImageUrl(imageUrl: any): void;
   callback?: Function;
   setImgId(imgId: any): void;
   disabled?: boolean;
+  uploadTitle?: string;
 }
 
 export default function UploadPro(props: IProps) {
-  const { imageUrl, setImageUrl, callback = () => {}, setImgId, disabled } = props;
+  const { imageUrl, setImageUrl, callback = () => {}, setImgId, disabled, uploadTitle = '点击上传' } = props;
   const [isLoading, setIsLoading] = useState(false);
   const action = USER_CENTER_URL + '/api/video-face/tmpFile/upload';
 
@@ -58,7 +59,7 @@ export default function UploadPro(props: IProps) {
       ) : (
         <>
           {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
-          <div>点击上传</div>
+          <div>{uploadTitle}</div>
         </>
       )}
     </Upload>
